@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Exercicio2 {
 
 //    Desenvolver um algoritmo que faça a média de quatro notas e diga se o aluno está aprovado, reprovado ou
@@ -7,12 +9,22 @@ public class Exercicio2 {
 //7 a 10 = aprovado
 
     public static void main(String[] args) {
-        float nota1 = 9.6f;
-        float nota2 = 7.8f;
-        float nota3 = 6.5f;
-        float nota4 = 4.5f;
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Digite nota 1: ");
+        Double nota1 = sc.nextDouble();
+        sc.nextLine();
+        System.out.println("Digite nota 2: ");
+        Double nota2 = sc.nextDouble();
+        sc.nextLine();
+        System.out.println("Digite nota 3: ");
+        Double nota3 = sc.nextDouble();
+        sc.nextLine();
+        System.out.println("Digite nota 4: ");
+        Double nota4 = sc.nextDouble();
+        sc.nextLine();
+        Double teste = 1.4;
 
-        float media = (nota1 + nota2 + nota3 + nota4)/4;
+        double media = (nota1 + nota2 + nota3 + nota4)/4;
         System.out.println("Sua media foi: " +media);
         System.out.print("Você está: ");
         if(media <= 5){
