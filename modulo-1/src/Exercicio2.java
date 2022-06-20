@@ -22,7 +22,6 @@ public class Exercicio2 {
         System.out.println("Digite nota 4: ");
         Double nota4 = sc.nextDouble();
         sc.nextLine();
-        Double teste = 1.4;
 
         double media = (nota1 + nota2 + nota3 + nota4)/4;
         System.out.println("Sua media foi: " +media);
