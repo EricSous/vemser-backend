@@ -1,3 +1,5 @@
+package lista1;
+
 import java.util.Scanner;
 
 public class Exercicio5 {
@@ -24,7 +26,6 @@ public static void main(String[] args) {
     sc.nextLine();
 
     System.out.println((horasTrabalhadasMensal * valorHora) + (horasExtras50 * valorHora * 1.5) + (horasExtras100 * valorHora * 2));
-
 }
 
 }
