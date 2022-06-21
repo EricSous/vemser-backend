@@ -7,6 +7,7 @@ public class Contato {
 
     public void imprimirContato(){
         System.out.printf("""
+                
                 Dados de Contato do cliente
                 Descrição: %s
                 Telefone: %s

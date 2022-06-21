@@ -74,6 +74,7 @@ public class Main {
         System.out.println("Saque " +contaJoao.sacar(600.0));
         System.out.println("Novo saldo: " +contaJoao.saldo);
         System.out.println("Saque " +contaJoao.sacar(200.0));
+        contaJoao.depositar(-500.0);
         System.out.println("Novo saldo: " +contaJoao.saldo+"\n");
 
         System.out.println("Deposito " +contaLucas.depositar(1500.0));

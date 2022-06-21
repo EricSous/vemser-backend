@@ -22,6 +22,7 @@ public class ContaCorrente {
             System.out.println("Saldo insuficiente!");
             return false;
         }
+        System.out.println("Saque no valor de " +valor);
         this.saldo -= valor;
         return true;
     }
@@ -30,6 +31,7 @@ public class ContaCorrente {
             System.out.println("Não e possivel depositar este valor!");
             return false;
         }
+        System.out.println("Deposito no valor de " +valor );
         this.saldo += valor;
         return true;
     }
@@ -43,6 +45,7 @@ public class ContaCorrente {
             System.out.println("Saldo insuficiente!");
             return false;
         }
+        System.out.println("Transferencia no valor de " +valor);
         this.saldo -= valor;
         conta.saldo += valor;
         return true;
