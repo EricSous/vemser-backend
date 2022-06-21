@@ -10,8 +10,12 @@ public class Contato {
                 Dados de Contato do cliente
                 Descrição: %s
                 Telefone: %s
-                Tipo: %s
-                """,descricao,telefone,tipo);
+                """,descricao,telefone);
+        if(tipo == 1){
+            System.out.println("Tipo: "+ tipo + " Residencial");
+        }else {
+            System.out.println("Tipo: "+ tipo + " Comercial");
+        }
     }
 
 }

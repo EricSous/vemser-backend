@@ -13,7 +13,6 @@ public class Endereco {
     public void imprimirEndereco(){
         System.out.printf("""
                 Dados de Endereço do cliente
-                Tipo: %s
                 Logradouro: %s
                 Numero: %s
                 Complemento: %s
@@ -21,6 +20,11 @@ public class Endereco {
                 Cidade: %s
                 Estado: %s
                 Pais: %s
-                """,tipo, logradouro, numero, complemento, cep, cidade, estado, pais);
+                """, logradouro, numero, complemento, cep, cidade, estado, pais);
+        if(tipo == 1){
+            System.out.println("Tipo: "+ tipo + " Residencial");
+        }else {
+            System.out.println("Tipo: "+ tipo + " Comercial");
+        }
     }
 }
