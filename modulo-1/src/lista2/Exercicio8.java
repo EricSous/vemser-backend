@@ -20,9 +20,14 @@ public class Exercicio8 {
         Scanner sc = new Scanner(System.in);
         Double guarda = 0.0;
 
+        System.out.println("""
+                        Coluna 0 = matricula
+                        Coluna 1 = media das provas
+                        Coluna 2 = média dos trabalhos
+                        """);
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 3; j++) {
-                System.out.println("Digite um numero para posição: " +i +", " +j );
+                System.out.println("Digite o valor para as posições linha: " +i +",coluna:  " +j );
                 matriz[i][j] = sc.nextDouble();
                 sc.nextLine();
             }
@@ -33,12 +38,14 @@ public class Exercicio8 {
         }
         guarda = matriz[0][3];
         for (int i = 0; i < 5; i++) {
-            System.out.println("As medias finais são, posição " +i +": "+matriz[i][3]);
             if (matriz[i][3] <= guarda) {
             } else {
                 guarda = matriz[i][3];
             }
         }
-        System.out.println("A maior media é: " + guarda);
+        System.out.println("A maior nota é: " + guarda);
+        for(int i = 0; i < 5; i++){
+            System.out.println("As medias finais são, posição " +i +": "+matriz[i][3]);
+        }
     }
 }

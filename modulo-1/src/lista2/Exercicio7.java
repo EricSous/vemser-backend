@@ -8,8 +8,8 @@ public class Exercicio7 {
     public static void main(String[] args) {
         int[][] matriz = new int[4][4];
         Scanner sc = new Scanner(System.in);
-        int guarda = 0;
-
+        int contadorMaiorQueDez = 0;
+        //Leitura da matriz:
         for (int i = 0; i < matriz.length; i++) {
             for (int j = 0; j < matriz.length; j++) {
                 System.out.println("Digite um numero: ");
@@ -17,15 +17,13 @@ public class Exercicio7 {
                 sc.nextLine();
             }
         }
-        guarda = matriz[0][0];
         for (int i = 0; i < matriz.length; i++) {
             for (int j = 0; j < matriz.length; j++) {
-                if (matriz[i][j] <= guarda) {
-                } else {
-                    guarda = matriz[i][j];
+                if (matriz[i][j] > 10) {
+                    contadorMaiorQueDez++;
                 }
             }
         }
-        System.out.println("O maior numero é: " + guarda);
+        System.out.println("Existem: " + contadorMaiorQueDez + " numeros maiores que 10");
     }
 }
