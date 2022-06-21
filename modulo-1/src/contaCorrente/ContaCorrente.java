@@ -9,12 +9,13 @@ public class ContaCorrente {
 
     public void imprimirContaCorrente(){
             System.out.printf("""
+                Dados da conta:
                 Nome: %s
                 Numero da Conta: %s
                 Agencia: %s
                 Saldo: %s
                 Cheque Especial: %s
-                """,cliente,numeroConta,agencia,saldo,chequeEspecial);
+                """,cliente.nome,numeroConta,agencia,saldo,chequeEspecial);
     }
     public Boolean sacar(Double valor){
         if(this.saldo+this.chequeEspecial < valor){

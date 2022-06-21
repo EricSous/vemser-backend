@@ -12,6 +12,7 @@ public class Endereco {
 
     public void imprimirEndereco(){
         System.out.printf("""
+                Dados de Endereço do cliente
                 Tipo: %s
                 Logradouro: %s
                 Numero: %s
@@ -20,6 +21,6 @@ public class Endereco {
                 Cidade: %s
                 Estado: %s
                 Pais: %s
-                """,tipo,logradouro,numero,complemento,cep,cidade,estado,pais);
+                """,tipo, logradouro, numero, complemento, cep, cidade, estado, pais);
     }
 }

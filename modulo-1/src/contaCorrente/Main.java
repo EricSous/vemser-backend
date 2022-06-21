@@ -43,6 +43,7 @@ public class Main {
         enderecoLucas.pais = "Brasil";
         enderecoLucas.tipo = 2;
 
+
         clienteLucas.endereco = enderecoLucas;
         ContaCorrente contaJoao = new ContaCorrente();
         contaJoao.saldo = 0.0;
@@ -57,24 +58,35 @@ public class Main {
         contaLucas.agencia = 3594;
         contaLucas.cliente = clienteLucas;
 
-        contaJoao.depositar(500.0);
-        System.out.println(contaJoao.saldo);
-        contaJoao.sacar(600.0);
-        System.out.println(contaJoao.saldo);
-        contaJoao.sacar(200.0);
-        System.out.println(contaJoao.saldo);
+        System.out.println("Deposito " +contaJoao.depositar(500.0));
+        System.out.println("Novo saldo: " +contaJoao.saldo);
+        System.out.println("Saque " +contaJoao.sacar(600.0));
+        System.out.println("Novo saldo: " +contaJoao.saldo);
+        System.out.println("Saque " +contaJoao.sacar(200.0));
+        System.out.println("Novo saldo: " +contaJoao.saldo+"\n");
 
-        contaLucas.depositar(1500.0);
-        contaLucas.transferir(contaJoao,300.0);
+        System.out.println("Deposito " +contaLucas.depositar(1500.0));
+        System.out.println("Transferencia: "+contaLucas.transferir(contaJoao,300.0));
         System.out.println("Saldo novo do João: " + contaJoao.saldo);
+        System.out.println("Saldo com cheque especial do João: "+ contaJoao.retornarSaldoComChequeEspecial());
         System.out.println("Saldo novo do Lucas: " + contaLucas.saldo);
+        System.out.println("Saldo com cheque especial do Lucas: "+ contaLucas.retornarSaldoComChequeEspecial()+"\n");
 
         clienteJoao.imprimirClientes();
+        System.out.println("\n");
         clienteJoao.imprimirContatos();
+        System.out.println("\n");
         clienteJoao.imprimirEnderecos();
+        System.out.println("\n");
+        contaJoao.imprimirContaCorrente();
+        System.out.println("\n");
         clienteLucas.imprimirClientes();
+        System.out.println("\n");
         clienteLucas.imprimirContatos();
+        System.out.println("\n");
         clienteLucas.imprimirEnderecos();
+        System.out.println("\n");
+        contaLucas.imprimirContaCorrente();
 
     }
 }
