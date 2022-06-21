@@ -1,5 +1,6 @@
 package lista2;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Exercicio8 {
@@ -52,6 +53,8 @@ public class Exercicio8 {
         for(int i = 0; i < 5; i++){
             System.out.println("As medias finais são, posição " +i +": "+matriz[i][3]);
         }
+
+        System.out.println(Arrays.deepToString(matriz));
 
     }
 }

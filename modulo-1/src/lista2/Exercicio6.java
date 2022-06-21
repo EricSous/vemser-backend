@@ -10,21 +10,17 @@ public class Exercicio6 {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        int[] vetor = {1,5,6,7,9,10,15,26,31,17};
+        int[] vetor = {1, 5, 6, 7, 9, 10, 15, 26, 31, 17};
         System.out.println("Digite um numero: ");
         int numero = sc.nextInt();
         sc.nextLine();
-        boolean existe= false;
+        boolean existe = false;
         for (int j : vetor) {
             if (numero == j) {
-                existe = true;
-                break;
+                System.out.println("Numero existente");
+                return;
             }
         }
-        if(existe){
-            System.out.println("Numero existe no vetor");
-        }else {
-            System.out.println("Numero não existe no vetor");
-        }
+        System.out.println("Numero não existe no vetor");
     }
 }
