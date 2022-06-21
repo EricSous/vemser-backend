@@ -48,13 +48,18 @@ public class Exercicio3 {
         }
         Double velho = 0.0;
         int pegarPessoaVelha = 0;
+        Integer tratandoIguaisVelho = null;
         for (int i = 0; i < pessoas; i++) {
             if (idade[i] < velho) {
             } else {
                 velho = idade[i];
                 pegarPessoaVelha = i;
             }
+            if(idade[i] == velho){
+                tratandoIguaisVelho = i-1;
+            }
         }
+        Integer tratandoIguaisPesado = null;
         int pegarPessoaPesada = 0;
         Double pesado = 0.0;
         for (int i = 0; i < pessoas; i++) {
@@ -63,10 +68,21 @@ public class Exercicio3 {
                 pesado = peso[i];
                 pegarPessoaPesada = i;
             }
+            if(peso[i] == pesado){
+                tratandoIguaisPesado = i-1;
+            }
         }
         System.out.println("Quantidade de jogadores: " + pessoas);
         System.out.println("A maior altura e:  " + guarda);
-        System.out.println("O jogador mais velho é:  " + nome[pegarPessoaVelha]);
-        System.out.println("O jogador mais pesado é:  " + nome[pegarPessoaPesada]);
+        if(tratandoIguaisVelho != null){
+            System.out.println("Os jogadores mais velhos são:  " + nome[pegarPessoaVelha] +", " +nome[tratandoIguaisVelho]);
+        }else{
+            System.out.println("O jogador mais velho é:  " + nome[pegarPessoaVelha]);
+        }
+        if(tratandoIguaisPesado != null){
+            System.out.println("Os jogadores mais velhos são:  " + nome[pegarPessoaPesada] +", " +nome[tratandoIguaisPesado]);
+        }else{
+            System.out.println("O jogador mais pesado é:  " + nome[pegarPessoaPesada]);
+        }
     }
 }
