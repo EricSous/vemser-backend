@@ -14,10 +14,11 @@ public class Exercicio6 {
         System.out.println("Digite um numero: ");
         int numero = sc.nextInt();
         sc.nextLine();
-        Boolean existe= false;
-        for (int i = 0; i < vetor.length; i++) {
-            if(numero == vetor[i]){
-                existe= true;
+        boolean existe= false;
+        for (int j : vetor) {
+            if (numero == j) {
+                existe = true;
+                break;
             }
         }
         if(existe){

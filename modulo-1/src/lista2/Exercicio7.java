@@ -17,9 +17,9 @@ public class Exercicio7 {
                 sc.nextLine();
             }
         }
-        for (int i = 0; i < matriz.length; i++) {
+        for (int[] ints : matriz) {
             for (int j = 0; j < matriz.length; j++) {
-                if (matriz[i][j] > 10) {
+                if (ints[j] > 10) {
                     contadorMaiorQueDez++;
                 }
             }

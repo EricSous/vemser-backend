@@ -18,17 +18,23 @@ public class Exercicio8 {
     public static void main(String[] args) {
         Double[][] matriz = new Double[5][4];
         Scanner sc = new Scanner(System.in);
-        Double guarda = 0.0;
+        Double guarda;
 
-        System.out.println("""
-                        Coluna 0 = matricula
-                        Coluna 1 = media das provas
-                        Coluna 2 = média dos trabalhos
-                        """);
+        //for para receber os valores referente a cada aluno
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 3; j++) {
-                System.out.println("Digite o valor para as posições linha: " +i +",coluna:  " +j );
-                matriz[i][j] = sc.nextDouble();
+                if(j == 0) {
+                    System.out.println("Digite o valor da matricula: ");
+                    matriz[i][j] = sc.nextDouble();
+                }
+                if(j == 1) {
+                    System.out.println("Digite o valor da media da prova do aluno: ");
+                    matriz[i][j] = sc.nextDouble();
+                }
+                if(j == 2) {
+                    System.out.println("Digite o valor da media dos trabalhos: ");
+                    matriz[i][j] = sc.nextDouble();
+                }
                 sc.nextLine();
             }
         }
@@ -38,8 +44,7 @@ public class Exercicio8 {
         }
         guarda = matriz[0][3];
         for (int i = 0; i < 5; i++) {
-            if (matriz[i][3] <= guarda) {
-            } else {
+            if (matriz[i][3] >= guarda) {
                 guarda = matriz[i][3];
             }
         }
