@@ -5,11 +5,16 @@ public class Main {
         Cliente clienteJoao = new Cliente();
         clienteJoao.cpf = "870.227.650-06";
         clienteJoao.nome = "João da silva";
-        Contato contatoJoao = new Contato();
-        contatoJoao.telefone = "61 99140-5346";
-        contatoJoao.tipo = 1;
-        contatoJoao.descricao = "Telefone do cliente";
-        clienteJoao.contato = contatoJoao;
+        Contato contatoJoaoTipoUm = new Contato();
+        contatoJoaoTipoUm.telefone = "61 99140-5346";
+        contatoJoaoTipoUm.tipo = 1;
+        contatoJoaoTipoUm.descricao = "Telefone do cliente";
+        clienteJoao.contato[0] = contatoJoaoTipoUm;
+        Contato contatoJoaoTipoDois = new Contato();
+        contatoJoaoTipoDois.telefone = "61 3599-5660";
+        contatoJoaoTipoDois.tipo = 2;
+        contatoJoaoTipoDois.descricao = "Telefone da casa da mae do cliente";
+        clienteJoao.contato[1] = contatoJoaoTipoDois;
 
         Endereco enderecoJoao = new Endereco();
         enderecoJoao.cep = "72322-578";
@@ -21,17 +26,23 @@ public class Main {
         enderecoJoao.pais = "Brasil";
         enderecoJoao.tipo = 1;
 
-        clienteJoao.endereco = enderecoJoao;
+        clienteJoao.endereco[0] = enderecoJoao;
 
 
         Cliente clienteLucas = new Cliente();
         clienteLucas.cpf = "005.224.660-44";
         clienteLucas.nome = "Lucas santos";
-        Contato contatoLucas = new Contato();
-        contatoLucas.telefone = "61 3598-6314";
-        contatoLucas.tipo = 2;
-        contatoLucas.descricao = "Telefone da casa do cliente";
-        clienteLucas.contato = contatoLucas;
+        Contato contatoLucasTipoDois = new Contato();
+        contatoLucasTipoDois.telefone = "61 3598-6314";
+        contatoLucasTipoDois.tipo = 2;
+        contatoLucasTipoDois.descricao = "Telefone da casa do cliente";
+        clienteLucas.contato[0] = contatoLucasTipoDois;
+
+        Contato contatoLucasTipoUm = new Contato();
+        contatoLucasTipoUm.telefone = "61 99999-9999";
+        contatoLucasTipoUm.tipo = 1;
+        contatoLucasTipoUm.descricao = "Telefone celular do cliente";
+        clienteLucas.contato[1] = contatoLucasTipoUm;
 
         Endereco enderecoLucas = new Endereco();
         enderecoLucas.cep = "71922-428";
@@ -44,7 +55,7 @@ public class Main {
         enderecoLucas.tipo = 2;
 
 
-        clienteLucas.endereco = enderecoLucas;
+        clienteLucas.endereco[0] = enderecoLucas;
         ContaCorrente contaJoao = new ContaCorrente();
         contaJoao.saldo = 0.0;
         contaJoao.chequeEspecial = 200.0;

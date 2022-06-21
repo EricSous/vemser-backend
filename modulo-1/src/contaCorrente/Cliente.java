@@ -3,15 +3,25 @@ package contaCorrente;
 public class Cliente {
     String nome;
     String cpf;
-    Contato contato;
-    Endereco endereco;
+    Contato[] contato = new Contato[2];
+    Endereco[] endereco = new Endereco[2];
 
     public void imprimirContatos() {
-        this.contato.imprimirContato();
+        for (Contato value : contato) {
+            if (value == null) {
+                return;
+            }
+            value.imprimirContato();
+        }
     }
 
     public void imprimirEnderecos() {
-        this.endereco.imprimirEndereco();
+        for (Endereco value : endereco) {
+            if (value == null) {
+                return;
+            }
+            value.imprimirEndereco();
+        }
     }
 
     public void imprimirClientes() {
