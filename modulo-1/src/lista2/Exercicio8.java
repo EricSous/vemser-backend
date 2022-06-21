@@ -18,9 +18,8 @@ public class Exercicio8 {
     public static void main(String[] args) {
         Double[][] matriz = new Double[5][4];
         Scanner sc = new Scanner(System.in);
-        Double guarda;
+        Double guarda = 0.0;
 
-        //for para receber os valores referente a cada aluno
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 3; j++) {
                 if(j == 0) {
@@ -42,15 +41,17 @@ public class Exercicio8 {
         for (int i = 0; i < 5; i++) {
             matriz[i][3] = (0.6 * matriz[i][1]) + (0.6 * matriz[i][2]);
         }
-        guarda = matriz[0][3];
+
         for (int i = 0; i < 5; i++) {
             if (matriz[i][3] >= guarda) {
                 guarda = matriz[i][3];
             }
         }
+
         System.out.println("A maior nota é: " + guarda);
         for(int i = 0; i < 5; i++){
             System.out.println("As medias finais são, posição " +i +": "+matriz[i][3]);
         }
+
     }
 }
