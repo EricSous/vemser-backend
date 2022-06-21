@@ -18,8 +18,6 @@ public class Cliente {
         System.out.printf("""
                 Nome:%s
                 Cpf:%s
-                Contato:%s
-                Endereço:%s
-                 """, this.nome, this.cpf, this.contato, this.endereco);
+                 """, this.nome, this.cpf);
     }
 }
