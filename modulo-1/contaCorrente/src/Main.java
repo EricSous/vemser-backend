@@ -76,7 +76,7 @@ public class Main {
         System.out.println("Novo saldo: " +contaJoao.saldo+"\n");
 
         System.out.println("Deposito " +contaLucas.depositar(1500.0));
-        System.out.println("Transferencia: "+contaLucas.transferir(contaJoao,300.0));
+        System.out.println("Transferencia: "+contaLucas.transferir(contaJoao,20.0));
         System.out.println("Saldo novo do João: " + contaJoao.saldo);
         System.out.println("Saldo com cheque especial do João: "+ contaJoao.retornarSaldoComChequeEspecial());
         System.out.println("Saldo novo do Lucas: " + contaLucas.saldo);

@@ -39,7 +39,10 @@ public class ContaCorrente {
     }
 
     public Boolean transferir(ContaCorrente conta, Double valor){
-        if(this.saldo+this.chequeEspecial < valor){
+        if(valor <=0){
+            System.out.println("Transferencia invalida");
+            return false;
+        }else if(this.saldo+this.chequeEspecial < valor){
             System.out.println("Saldo insuficiente!");
             return false;
         }
