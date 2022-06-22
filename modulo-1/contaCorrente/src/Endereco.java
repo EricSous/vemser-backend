@@ -1,5 +1,3 @@
-package contaCorrente;
-
 public class Endereco {
     int tipo;
     String logradouro;

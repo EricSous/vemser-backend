@@ -1,5 +1,3 @@
-package contaCorrente;
-
 public class Contato {
     String descricao;
     String telefone;
