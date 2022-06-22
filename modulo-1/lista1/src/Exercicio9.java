@@ -1,5 +1,3 @@
-package lista1;
-
 import java.text.ParseException;
 import java.util.Scanner;
 
