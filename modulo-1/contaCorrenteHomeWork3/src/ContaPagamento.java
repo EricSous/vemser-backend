@@ -28,4 +28,19 @@ public class ContaPagamento extends Conta implements Imprimir{
         setSaldo(getSaldo() - valor - TAXA_SAQUE);
         return true;
     }
+
+    @Override
+    public boolean transferir(Conta conta, double valor) {
+        if(valor <=0){
+            System.out.println("Transferencia invalida");
+            return false;
+        }else if(getSaldo()< valor + TAXA_SAQUE){
+            System.out.println("Saldo insuficiente!");
+            return false;
+        }
+        System.out.println("Transferencia no valor de " +valor);
+        setSaldo(getSaldo() - valor - TAXA_SAQUE);
+        conta.setSaldo(conta.getSaldo() + valor);
+        return true;
+    }
 }
