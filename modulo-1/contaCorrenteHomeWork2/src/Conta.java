@@ -14,7 +14,6 @@ public abstract class Conta implements Movimentacao{
         this.saldo = saldo;
     }
 
-
     public Cliente getCliente() {
         return cliente;
     }

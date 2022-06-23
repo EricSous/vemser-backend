@@ -1,7 +1,6 @@
 public class ContaCorrente extends Conta implements Imprimir{
     private Double chequeEspecial;
 
-
     public ContaCorrente() {
     }
 
@@ -61,5 +60,9 @@ public class ContaCorrente extends Conta implements Imprimir{
                 Saldo: %s
                 Cheque Especial: %s
                 """,getCliente().getNome(),getNumeroConta(),getAgencia(),getSaldo(),chequeEspecial);
+    }
+
+    public void setChequeEspecial(Double chequeEspecial) {
+        this.chequeEspecial = chequeEspecial;
     }
 }
