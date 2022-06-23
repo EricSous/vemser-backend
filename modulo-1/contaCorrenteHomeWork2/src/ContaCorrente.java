@@ -1,6 +1,10 @@
 public class ContaCorrente extends Conta implements Imprimir{
     private Double chequeEspecial;
 
+
+    public ContaCorrente() {
+    }
+
     public ContaCorrente(Cliente cliente, String numeroConta, int agencia, Double saldo, Double chequeEspecial) {
         super(cliente, numeroConta, agencia, saldo);
         this.chequeEspecial = chequeEspecial;
@@ -27,7 +31,7 @@ public class ContaCorrente extends Conta implements Imprimir{
             System.out.println("Não e possivel depositar este valor!");
             return false;
         }
-        System.out.println("Deposito no valor de " +valor );
+        System.out.println("Deposito no valor de " +valor +" na conta do "+ getCliente().getNome());
         setSaldo(getSaldo() + valor);
         return true;
     }

@@ -8,6 +8,10 @@ public class Endereco {
     private String estado;
     private String pais;
 
+    public Endereco() {
+
+    }
+
     public Endereco(int tipo, String logradouro, int numero, String complemento, String cep, String cidade, String estado, String pais) {
         this.tipo = tipo;
         this.logradouro = logradouro;
@@ -83,9 +87,8 @@ public class Endereco {
         this.pais = pais;
     }
 
-    public void imprimirEndereco(){
+    public void imprimirEndereco() {
         System.out.printf("""
-                
                 Dados de Endereço do cliente
                 Logradouro: %s
                 Numero: %s
@@ -94,11 +97,11 @@ public class Endereco {
                 Cidade: %s
                 Estado: %s
                 Pais: %s
-                """, logradouro, numero, complemento, cep, cidade, estado, pais);
-        if(tipo == 1){
-            System.out.println("Tipo: "+ tipo + " Residencial");
-        }else {
-            System.out.println("Tipo: "+ tipo + " Comercial");
+                """, getLogradouro(), getNumero(), getComplemento(), getCep(), getCidade(), getEstado(), getPais());
+        if (tipo == 1) {
+            System.out.println("Tipo: " + getTipo() + " Residencial");
+        } else {
+            System.out.println("Tipo: " + getTipo() + " Comercial");
         }
     }
 }

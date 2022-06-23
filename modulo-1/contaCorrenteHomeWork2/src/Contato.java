@@ -3,6 +3,9 @@ public class Contato {
     private String telefone;
     private int tipo;
 
+    public Contato() {
+    }
+
     public Contato(String descricao, String telefone, int tipo) {
         this.descricao = descricao;
         this.telefone = telefone;
@@ -35,15 +38,14 @@ public class Contato {
 
     public void imprimirContato(){
         System.out.printf("""
-                
                 Dados de Contato do cliente
                 Descrição: %s
                 Telefone: %s
-                """,descricao,telefone);
+                """,getDescricao(),getTelefone());
         if(tipo == 1){
-            System.out.println("Tipo: "+ tipo + " Residencial");
+            System.out.println("Tipo: "+ getTipo() + " Residencial");
         }else {
-            System.out.println("Tipo: "+ tipo + " Comercial");
+            System.out.println("Tipo: "+ getTipo() + " Comercial");
         }
     }
 

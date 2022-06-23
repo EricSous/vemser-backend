@@ -31,7 +31,8 @@ public class Main {
         System.out.println("Saldo novo do João: " + contaJoao.getSaldo());
         System.out.println("Saldo com cheque especial do João: "+ contaJoao.retornarSaldoComChequeEspecial());
         System.out.println("Saldo novo do Lucas: " + contaLucas.getSaldo());
-        System.out.println("Saldo com cheque especial do Lucas: "+ contaJoao.retornarSaldoComChequeEspecial());
+        contaLucas.creditarTaxa();
+        System.out.println("Saldo novo do Lucas com juros: " + contaLucas.getSaldo());
 
         clienteJoao.imprimirClientes();
         System.out.println("\n");
@@ -48,6 +49,46 @@ public class Main {
         clienteLucas.imprimirEnderecos();
         System.out.println("\n");
         contaLucas.imprimir();
+        System.out.println("\n");
+
+
+        //Usando Get e Setters
+        Endereco[] enderecosLuiza = new Endereco[1];
+        Endereco endereco1 = new Endereco();
+        endereco1.setCep("72154-613");
+        endereco1.setCidade("Belo Horizonte");
+        endereco1.setComplemento("em frente a ZAMA MACIEL");
+        endereco1.setLogradouro("Zama aderlaide Maciel");
+        endereco1.setNumero(105);
+        endereco1.setPais("Brasil");
+        endereco1.setEstado("Minas Gerais");
+        endereco1.setTipo(2);
+        enderecosLuiza[0] = endereco1;
+
+        Contato[] contatosLuiza = new Contato[1];
+        Contato contato1 = new Contato();
+        contato1.setDescricao("Telefone Celular da cliente");
+        contato1.setTipo(1);
+        contato1.setTelefone("985494466");
+        contatosLuiza[0] = contato1;
+
+        Cliente clienteLuiza = new Cliente();
+        clienteLuiza.setCpf("033.578.698-66");
+        clienteLuiza.setNome("Luiza");
+        clienteLuiza.setContato(contatosLuiza);
+        clienteLuiza.setEndereco(enderecosLuiza);
+        Conta contaLuiza = new ContaCorrente();
+        contaLuiza.setSaldo(0.0);
+        contaLuiza.setAgencia(1563);
+        contaLuiza.setCliente(clienteLuiza);
+        clienteLuiza.imprimirClientes();
+        System.out.println("\n");
+        clienteLuiza.imprimirContatos();
+        System.out.println("\n");
+
+        clienteLuiza.imprimirEnderecos();
+
+
 
     }
 }
