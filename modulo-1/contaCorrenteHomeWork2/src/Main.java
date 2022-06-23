@@ -52,7 +52,7 @@ public class Main {
         System.out.println("\n");
 
 
-        //Usando Get e Setters
+        //Usando Setters
         Endereco[] enderecosLuiza = new Endereco[1];
         Endereco endereco1 = new Endereco();
         endereco1.setCep("72154-613");
@@ -85,7 +85,6 @@ public class Main {
         System.out.println("\n");
         clienteLuiza.imprimirContatos();
         System.out.println("\n");
-
         clienteLuiza.imprimirEnderecos();
 
 

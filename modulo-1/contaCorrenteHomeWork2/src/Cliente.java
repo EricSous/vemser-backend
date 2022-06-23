@@ -49,7 +49,7 @@ public class Cliente {
     public void imprimirContatos() {
         for (Contato value : contato) {
             if (value == null) {
-                return;
+                continue;
             }
             value.imprimirContato();
         }
