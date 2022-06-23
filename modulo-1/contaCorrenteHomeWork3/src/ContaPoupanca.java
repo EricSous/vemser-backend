@@ -17,8 +17,7 @@ public class ContaPoupanca extends Conta implements Imprimir{
                 Numero da Conta: %s
                 Agencia: %s
                 Saldo: %s
-                Juros Mensal: %s
-                """,getCliente().getNome(),getNumeroConta(),getAgencia(),getSaldo(),JUROS_MENSAL);
+                Juros Mensal: %s""",getCliente().getNome(),getNumeroConta(),getAgencia(),getSaldo(),JUROS_MENSAL);
     }
 
 }

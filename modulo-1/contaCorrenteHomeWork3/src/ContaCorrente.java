@@ -58,8 +58,7 @@ public class ContaCorrente extends Conta implements Imprimir{
                 Numero da Conta: %s
                 Agencia: %s
                 Saldo: %s
-                Cheque Especial: %s
-                """,getCliente().getNome(),getNumeroConta(),getAgencia(),getSaldo(),chequeEspecial);
+                Cheque Especial: %s""",getCliente().getNome(),getNumeroConta(),getAgencia(),getSaldo(),chequeEspecial);
     }
 
     public void setChequeEspecial(Double chequeEspecial) {

@@ -29,6 +29,7 @@ public class Main {
 
         System.out.println("Deposito " +contaPoupJoao.depositar(500.0));
         System.out.println("Novo saldo: " +contaPoupJoao.getSaldo());
+        System.out.print("\n");
         System.out.println("Saque " +contaPoupJoao.sacar(600.0));
         System.out.println("Novo saldo: " +contaPoupJoao.getSaldo());
         System.out.println("Saque " +contaPoupJoao.sacar(200.0));
@@ -38,14 +39,18 @@ public class Main {
         System.out.println("Deposito " +contaCCJoao.depositar(1500.0));
         System.out.println("Transferência da conta corrente para Poupança João: "+contaCCJoao.transferir(contaPoupJoao,0.0));
         System.out.println("Saldo novo da conta corrente do João: " + contaCCJoao.getSaldo());
+        System.out.print("\n");
         System.out.println("Saldo com cheque especial do João: "+ contaCCJoao.retornarSaldoComChequeEspecial());
-        System.out.println("Saldo novo do João na conta corrente: " + contaCCJoao.getSaldo());
+        System.out.print("\n");
+
         contaPoupJoao.creditarTaxa();
         System.out.println("Saldo novo do Joao com juros na conta poupança: " + contaPoupJoao.getSaldo());
 
         System.out.println("Sacando dinheiro da conta do lucas "+ contaPagLucas.sacar(100));
         System.out.println("Saldo do Lucas: "+ contaPagLucas.getSaldo());
-        System.out.println("Depositando na conta do Lucas: "+ contaPagLucas.depositar(500));
+        System.out.println("Depositando na conta do Lucas: "+ contaPagLucas.depositar(1500));
+        System.out.println("Transferencia do Lucas para o Joao: " +contaPagLucas.transferir(contaCCJoao, 500.0));
+        System.out.print("\n");
 
 
         contaCCJoao.imprimir();

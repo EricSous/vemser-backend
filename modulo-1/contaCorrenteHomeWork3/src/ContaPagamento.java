@@ -14,8 +14,7 @@ public class ContaPagamento extends Conta implements Imprimir{
                 Numero da Conta: %s
                 Agencia: %s
                 Saldo: %s
-                Taxa para saque: %s
-                """,getCliente().getNome(),getNumeroConta(),getAgencia(),getSaldo(),TAXA_SAQUE);
+                Taxa para pagamentos: %s""",getCliente().getNome(),getNumeroConta(),getAgencia(),getSaldo(),TAXA_SAQUE);
     }
 
     @Override
