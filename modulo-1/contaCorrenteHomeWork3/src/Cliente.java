@@ -60,7 +60,7 @@ public class Cliente {
     public void imprimirEnderecos() {
         for (Endereco value : endereco) {
             if (value == null) {
-                return;
+                continue;
             }
             value.imprimirEndereco();
         }
