@@ -49,20 +49,24 @@ public class Cliente {
     }
 
     public void imprimirContatos() {
-        for (Contato value : contato) {
-            if (value == null) {
-                continue;
+        if(this.contato != null) {
+            for (Contato value : contato) {
+                if (value == null) {
+                    continue;
+                }
+                value.imprimirContato();
             }
-            value.imprimirContato();
         }
     }
 
     public void imprimirEnderecos() {
-        for (Endereco value : endereco) {
-            if (value == null) {
-                continue;
+        if(this.contato != null) {
+            for (Endereco value : endereco) {
+                if (value == null) {
+                    continue;
+                }
+                value.imprimirEndereco();
             }
-            value.imprimirEndereco();
         }
     }
 
