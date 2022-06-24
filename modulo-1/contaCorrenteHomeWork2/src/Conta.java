@@ -70,16 +70,12 @@ public abstract class Conta implements Movimentacao{
 
     @Override
     public boolean transferir(Conta conta, double valor) {
-        if(valor <=0){
-            System.out.println("Transferencia invalida");
-            return false;
-        }else if(getSaldo()< valor){
-            System.out.println("Saldo insuficiente!");
+        if(valor <= 0){
+            System.out.println("Valor invalido");
             return false;
         }
         System.out.println("Transferencia no valor de " +valor);
-        setSaldo(getSaldo() - valor);
-        conta.setSaldo(conta.getSaldo() + valor);
-        return true;
+        this.sacar(valor);
+        return conta.depositar(valor);
     }
 }

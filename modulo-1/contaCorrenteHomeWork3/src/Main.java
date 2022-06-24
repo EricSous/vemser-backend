@@ -17,9 +17,9 @@ public class Main {
         Contato contatosLucas2 = new Contato("Telefone celular do cliente","61 99999-9999",1);
         contatosLucas.add(contatosLucas1);
         contatosLucas.add(contatosLucas2);
-        ArrayList<Endereco> enderecosLucas = new ArrayList<>();
-        Endereco enderecoLucas1 = new Endereco(2,"São joao",93,"Em frente a igreja","71922-428","Salvador","Bahia","Brasil");
-        Cliente clienteLucas = new Cliente("Lucas santos","005.224.660-44",contatosLucas,enderecosLucas);
+//        ArrayList<Endereco> enderecosLucas = new ArrayList<>();
+//        Endereco enderecoLucas1 = new Endereco(2,"São joao",93,"Em frente a igreja","71922-428","Salvador","Bahia","Brasil");
+        Cliente clienteLucas = new Cliente("Lucas santos","005.224.660-44",contatosLucas,null);
 
         ContaCorrente contaCCJoao = new ContaCorrente(clienteJoao,"153463-5",1568,0.0,200.0);
         ContaPoupanca contaPoupJoao = new ContaPoupanca(clienteJoao,"14963-1",3594,0.0);
