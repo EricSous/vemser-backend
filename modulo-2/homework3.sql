@@ -2,19 +2,19 @@ SELECT
 	*
 FROM
 	PESSOA p
-RIGHT OUTER JOIN CONTATO c2 
- ON
-	( p.ID_PESSOA = c2.ID_CONTATO );
- 
+RIGHT OUTER JOIN CONTATO c2
+                          ON
+	(p.ID_PESSOA = c2.ID_CONTATO);
+
 SELECT
 	*
 FROM
 	PESSOA p
-RIGHT OUTER JOIN PESSOA_X_PESSOA_ENDERECO pxpe 
- ON
-	(pxpe.ID_PESSOA = p.ID_PESSOA )
-RIGHT OUTER JOIN ENDERECO_PESSOA ep 
- ON
+RIGHT OUTER JOIN PESSOA_X_PESSOA_ENDERECO pxpe
+                          ON
+	(pxpe.ID_PESSOA = p.ID_PESSOA)
+RIGHT OUTER JOIN ENDERECO_PESSOA ep
+                          ON
 	(pxpe.ID_ENDERECO = ep.ID_ENDERECO);
 
 
@@ -22,84 +22,85 @@ SELECT
 	*
 FROM
 	PESSOA p
-RIGHT OUTER JOIN PESSOA_X_PESSOA_ENDERECO pxpe 
- ON
-	(pxpe.ID_PESSOA = p.ID_PESSOA )
-RIGHT OUTER JOIN ENDERECO_PESSOA ep 
- ON
+RIGHT OUTER JOIN PESSOA_X_PESSOA_ENDERECO pxpe
+                          ON
+	(pxpe.ID_PESSOA = p.ID_PESSOA)
+RIGHT OUTER JOIN ENDERECO_PESSOA ep
+                          ON
 	(pxpe.ID_ENDERECO = ep.ID_ENDERECO);
 
 SELECT
 	*
 FROM
 	PESSOA p
-RIGHT OUTER JOIN CONTATO c 
-ON
+RIGHT OUTER JOIN CONTATO c
+                          ON
 	(p.ID_PESSOA = c.ID_PESSOA)
-RIGHT OUTER JOIN PESSOA_X_PESSOA_ENDERECO pxpe 
-ON
-	( c.ID_PESSOA = pxpe.ID_PESSOA)
-RIGHT OUTER JOIN ENDERECO_PESSOA ep 
-ON
+RIGHT OUTER JOIN PESSOA_X_PESSOA_ENDERECO pxpe
+                          ON
+	(c.ID_PESSOA = pxpe.ID_PESSOA)
+RIGHT OUTER JOIN ENDERECO_PESSOA ep
+                          ON
 	(pxpe.ID_ENDERECO = ep.ID_ENDERECO);
--- usei a propria formatação do dbeaver ctrl + shift + f
-
-SELECT *
-FROM
-	PESSOA p
-FULL OUTER JOIN CONTATO c  ON
-	( c.ID_CONTATO 
-       = p.ID_PESSOA );
-      
-SELECT
-	*
-FROM
-	PESSOA p
-FULL OUTER JOIN PESSOA_X_PESSOA_ENDERECO pxpe 
- ON
-	(pxpe.ID_PESSOA = p.ID_PESSOA )
-FULL OUTER JOIN ENDERECO_PESSOA ep 
- ON
-	(pxpe.ID_ENDERECO = ep.ID_ENDERECO);   
-
+-- usei a propria formataï¿½ï¿½o do dbeaver ctrl + shift + f
 
 SELECT
 	*
 FROM
 	PESSOA p
-FULL OUTER JOIN CONTATO c 
- ON
+FULL OUTER JOIN CONTATO c ON
+	(c.ID_CONTATO
+        = p.ID_PESSOA);
+
+SELECT
+	*
+FROM
+	PESSOA p
+FULL OUTER JOIN PESSOA_X_PESSOA_ENDERECO pxpe
+                         ON
+	(pxpe.ID_PESSOA = p.ID_PESSOA)
+FULL OUTER JOIN ENDERECO_PESSOA ep
+                         ON
+	(pxpe.ID_ENDERECO = ep.ID_ENDERECO);
+
+
+SELECT
+	*
+FROM
+	PESSOA p
+FULL OUTER JOIN CONTATO c
+                         ON
 	(p.ID_PESSOA = c.ID_PESSOA)
-FULL OUTER JOIN PESSOA_X_PESSOA_ENDERECO pxpe 
- ON
-	( c.ID_PESSOA = pxpe.ID_PESSOA)
-FULL OUTER JOIN ENDERECO_PESSOA ep 
- ON
+FULL OUTER JOIN PESSOA_X_PESSOA_ENDERECO pxpe
+                         ON
+	(c.ID_PESSOA = pxpe.ID_PESSOA)
+FULL OUTER JOIN ENDERECO_PESSOA ep
+                         ON
 	(pxpe.ID_ENDERECO = ep.ID_ENDERECO);
 
- 
+
 
 SELECT
 	P.ID_PESSOA,
-	P.NOME AS "PESSOAS COM ENDEREÇO"
+	P.NOME AS "PESSOAS COM ENDEREï¿½O"
 FROM
 	PESSOA P
 WHERE
-	EXISTS 
-	           		 (
+	EXISTS
+          (
 	SELECT
 		PXPE.ID_PESSOA
 	FROM
 		PESSOA_X_PESSOA_ENDERECO pxpe
 	WHERE
 		PXPE.ID_PESSOA = P.ID_PESSOA
-	           		 );
-	           		
-	           		 SELECT 
-	             P.ID_PESSOA,
-	             P.NOME,
-	             EP.ID_ENDERECO,
-	             EP.LOGRADOURO
+          );
+
+SELECT
+	P.ID_PESSOA,
+	P.NOME,
+	EP.ID_ENDERECO,
+	EP.LOGRADOURO
 FROM
 	PESSOA P
 JOIN PESSOA_X_PESSOA_ENDERECO PXPE
