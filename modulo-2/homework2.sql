@@ -1,11 +1,6 @@
 -- usei a propria formatação do dbeaver ctrl + shift + f
 
-SELECT
-	*
-FROM
-	PAIS p
-ORDER BY
-	NOME DESC;
+SELECT * FROM VEM_SER.PAIS p ORDER BY NOME DESC;
 
 SELECT
 	LOGRADOURO,
@@ -52,5 +47,7 @@ FROM
 	ENDERECO e
 GROUP BY
 	ID_CIDADE ;
+
+SELECT * FROM JOGADOR WHERE NOME_JOGADOR = 'Joãozito'
 
 
