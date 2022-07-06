@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
 @RestController
 @RequestMapping("/contato") // localhost:8080/contato
 public class ContatoController {
@@ -17,9 +18,9 @@ public class ContatoController {
     }
 
 
-    @PostMapping // localhost:8080/contato
-    public Contato create(@RequestBody Contato pessoa) {
-        return contatoService.adicionar(pessoa);
+    @PostMapping ("/{idPessoa}")// localhost:8080/contato
+    public Contato create(@PathVariable("idPessoa") Integer id, @RequestBody Contato contato) {
+        return contatoService.adicionar(id, contato);
     }
 
     @GetMapping // localhost:8080/contato
