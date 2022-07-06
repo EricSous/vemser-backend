@@ -2,12 +2,15 @@ package br.com.vemser.pessoaapi.service;
 
 import br.com.vemser.pessoaapi.entities.Pessoa;
 import br.com.vemser.pessoaapi.repository.PessoaRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class PessoaService {
+
+    @Autowired
     private PessoaRepository pessoaRepository;
 
     public PessoaService(){
