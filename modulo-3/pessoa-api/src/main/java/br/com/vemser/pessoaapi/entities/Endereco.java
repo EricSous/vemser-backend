@@ -1,26 +1,82 @@
 package br.com.vemser.pessoaapi.entities;
 
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class Endereco {
+
     private Integer idEndereco;
+
     private Integer idPessoa;
+
+    @NotNull
+    @Size(max = 250)
     private String logradouro;
+
     private String complemento;
+
+    @NotNull
+    @NotEmpty
+    @Size(max = 250)
     private String cidade;
+
+    @NotNull
     private String estado;
+
+    @NotNull
     private String pais;
+
+    @NotNull
+    @NotEmpty
+    @Size(max = 8)
+    private String cep;
+
+    @NotNull
+    private TipoEndereco tipoEndereco;
+
+    @NotNull
+    private Integer numero;
 
     public Endereco() {
     }
 
-    public Endereco(Integer idEndereco, Integer idPessoa, String logradouro, String complemento, String cidade, String estado, String pais) {
+    public Endereco(Integer idEndereco, Integer idPessoa, String logradouro, String complemento, String cidade, String estado, String cep, TipoEndereco tipoEndereco, Integer numero, String pais) {
         this.idEndereco = idEndereco;
         this.idPessoa = idPessoa;
         this.logradouro = logradouro;
         this.complemento = complemento;
         this.cidade = cidade;
         this.estado = estado;
+        this.cep = cep;
+        this.tipoEndereco = tipoEndereco;
+        this.numero = numero;
         this.pais = pais;
+    }
+
+    public String getPais() {
+        return pais;
+    }
+
+    public void setPais(String pais) {
+        this.pais = pais;
+    }
+
+    public Integer getNumero() {
+        return numero;
+    }
+
+    public void setNumero(Integer numero) {
+        this.numero = numero;
+    }
+
+    public TipoEndereco getTipoEndereco() {
+        return tipoEndereco;
+    }
+
+    public void setTipoEndereco(TipoEndereco tipoEndereco) {
+        this.tipoEndereco = tipoEndereco;
     }
 
     public Integer getIdPessoa() {
@@ -71,11 +127,11 @@ public class Endereco {
         this.estado = estado;
     }
 
-    public String getPais() {
-        return pais;
+    public String getCep() {
+        return cep;
     }
 
-    public void setPais(String pais) {
-        this.pais = pais;
+    public void setCep(String pais) {
+        this.cep = pais;
     }
 }

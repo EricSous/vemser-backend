@@ -1,20 +1,43 @@
 package br.com.vemser.pessoaapi.entities;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class Contato {
 
         private Integer idContato;
+
         private Integer idPessoa;
+
+        @NotNull
+        @Size(max = 13)
         private String numero;
+
+        @NotNull
+        @NotEmpty
         private String descricao;
+
+        @NotNull
+        private TipoContato tipoDeContato;
 
     public Contato() {
     }
 
-    public Contato(Integer idContato, Integer idPessoa, String numero, String descricao) {
+    public Contato(Integer idContato, Integer idPessoa, String numero, String descricao, TipoContato tipoDeContato) {
         this.idContato = idContato;
         this.idPessoa = idPessoa;
         this.numero = numero;
         this.descricao = descricao;
+        this.tipoDeContato = tipoDeContato;
+    }
+
+    public TipoContato getTipoDeContato() {
+        return tipoDeContato;
+    }
+
+    public void setTipoDeContato(TipoContato tipoDeContato) {
+        this.tipoDeContato = tipoDeContato;
     }
 
     public Integer getIdContato() {

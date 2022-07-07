@@ -31,6 +31,7 @@ public class PessoaRepository {
     }
 
     public List<Pessoa> list() {
+        System.out.println(listaPessoas.size());
         return listaPessoas;
     }
 

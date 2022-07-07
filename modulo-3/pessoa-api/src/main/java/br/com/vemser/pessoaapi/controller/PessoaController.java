@@ -6,6 +6,7 @@ import br.com.vemser.pessoaapi.service.PessoaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -33,7 +34,7 @@ public class PessoaController {
     }
 
     @PostMapping // localhost:8080/pessoa
-    public Pessoa create(@RequestBody Pessoa pessoa) {
+    public Pessoa create(@Valid @RequestBody Pessoa pessoa) {
         return pessoaService.adicionar(pessoa);
     }
 
@@ -49,7 +50,7 @@ public class PessoaController {
 
     @PutMapping("/{idPessoa}") // localhost:8080/pessoa/1000
     public Pessoa update(@PathVariable("idPessoa") Integer id,
-                         @RequestBody Pessoa pessoaAtualizar) throws Exception {
+                         @Valid @RequestBody Pessoa pessoaAtualizar) throws Exception {
         return pessoaService.editar(id, pessoaAtualizar);
     }
 

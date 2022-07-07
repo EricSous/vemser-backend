@@ -1,7 +1,10 @@
 package br.com.vemser.pessoaapi.service;
 
 import br.com.vemser.pessoaapi.entities.Contato;
+import br.com.vemser.pessoaapi.entities.Pessoa;
+import br.com.vemser.pessoaapi.exceptions.RegraDeNegocioException;
 import br.com.vemser.pessoaapi.repository.ContatoRepository;
+import br.com.vemser.pessoaapi.repository.PessoaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,8 +21,12 @@ public class ContatoService {
         contatoRepository = new ContatoRepository();
     }
 
-    public Contato adicionar(Integer id, Contato contato){
+    public Contato adicionar(Integer id, Contato contato) throws RegraDeNegocioException {
         contato.setIdPessoa(id);
+        Pessoa pessoaRecuperada = PessoaRepository.getListaPessoas().stream()
+                .filter(pessoa -> pessoa.getIdPessoa().equals(id))
+                .findFirst()
+                .orElseThrow(() -> new RegraDeNegocioException("Pessoa não econtrada"));
         return contatoRepository.createContato(contato);
     }
 

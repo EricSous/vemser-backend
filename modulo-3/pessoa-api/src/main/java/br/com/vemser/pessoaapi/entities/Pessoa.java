@@ -1,13 +1,23 @@
 package br.com.vemser.pessoaapi.entities;
 
+import javax.validation.constraints.*;
 import java.time.LocalDate;
 
 
 public class Pessoa {
 
     private Integer idPessoa;
+
+    @NotEmpty
+    @NotNull
     private String nome;
+
+    @Past
+    @NotNull
     private LocalDate dataNascimento;
+
+    @Size(max = 11, min = 11)
+    @NotNull
     private String cpf;
 
     public Pessoa() {

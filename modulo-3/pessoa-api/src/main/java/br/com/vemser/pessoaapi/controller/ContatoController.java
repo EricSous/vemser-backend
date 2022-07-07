@@ -1,6 +1,7 @@
 package br.com.vemser.pessoaapi.controller;
 
 import br.com.vemser.pessoaapi.entities.Contato;
+import br.com.vemser.pessoaapi.exceptions.RegraDeNegocioException;
 import br.com.vemser.pessoaapi.service.ContatoService;
 import br.com.vemser.pessoaapi.service.PessoaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ public class ContatoController {
 
 
     @PostMapping ("/{idPessoa}")// localhost:8080/contato
-    public Contato create(@PathVariable("idPessoa") Integer id, @RequestBody Contato contato) {
+    public Contato create(@PathVariable("idPessoa") Integer id, @RequestBody Contato contato) throws RegraDeNegocioException {
         return contatoService.adicionar(id, contato);
     }
 
@@ -39,7 +40,6 @@ public class ContatoController {
     @PutMapping("/{idContato}") // localhost:8080/contato/1000
     public Contato update(@PathVariable("idContato") Integer id,
                          @RequestBody Contato pessoaAtualizar) throws Exception {
-        PessoaService pessoaService = new PessoaService();
         return contatoService.editar(id, pessoaAtualizar);
     }
 

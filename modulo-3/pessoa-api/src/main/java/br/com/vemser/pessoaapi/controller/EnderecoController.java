@@ -1,6 +1,7 @@
 package br.com.vemser.pessoaapi.controller;
 
 import br.com.vemser.pessoaapi.entities.Endereco;
+import br.com.vemser.pessoaapi.exceptions.RegraDeNegocioException;
 import br.com.vemser.pessoaapi.service.EnderecoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -29,8 +30,8 @@ public class EnderecoController {
         return enderecoService.listPorPessoa(idPessoa);
     }
 
-    @PostMapping("/pessoa/{idPessoa}")
-    public Endereco adicionarPessoa(@PathVariable("idPessoa") Integer idPessoa, @RequestBody Endereco endereco){
+    @PostMapping("/{idPessoa}")
+    public Endereco adicionarEndereco(@PathVariable("idPessoa") Integer idPessoa, @RequestBody Endereco endereco) throws RegraDeNegocioException {
         return enderecoService.adicionar(idPessoa,endereco);
     }
 

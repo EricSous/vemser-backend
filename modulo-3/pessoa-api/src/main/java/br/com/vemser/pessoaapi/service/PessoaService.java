@@ -1,11 +1,13 @@
 package br.com.vemser.pessoaapi.service;
 
 import br.com.vemser.pessoaapi.entities.Pessoa;
+import br.com.vemser.pessoaapi.exceptions.RegraDeNegocioException;
 import br.com.vemser.pessoaapi.repository.PessoaRepository;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Service
@@ -25,8 +27,10 @@ public class PessoaService {
         Boolean verificaTamanhos = pessoa.getCpf().length() == 11;
         if(verificaNome && verificaDataNascimento && verificaCPF && verificaTamanhos){
             System.out.println("Nao e possivel adicionar está pessoa");
+        }else {
+            return pessoaRepository.create(pessoa);
         }
-        return pessoaRepository.create(pessoa);
+        return null;
     }
 
     public Pessoa editar(int id, Pessoa pessoa) throws Exception {
@@ -44,7 +48,7 @@ public class PessoaService {
         Pessoa pessoaRecuperada = PessoaRepository.getListaPessoas().stream()
                 .filter(pessoa -> pessoa.getIdPessoa().equals(id))
                 .findFirst()
-                .orElseThrow(() -> new Exception("Pessoa não econtrada"));
+                .orElseThrow(() -> new RegraDeNegocioException("Pessoa não econtrada"));
         pessoaRepository.delete(pessoaRecuperada);
     }
 
