@@ -1,0 +1,148 @@
+{
+	"info": {
+		"_postman_id": "4f7395f5-10e8-40bb-8899-427af44ad16b",
+		"name": "homework1_3",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17987430"
+	},
+	"item": [
+		{
+			"name": "endereco",
+			"item": [
+				{
+					"name": "endereco lista",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8090/endereco",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"endereco"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "endereco por id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8090/endereco/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"endereco",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "endereco por pessoa",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8090/endereco/1/pessoa",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"endereco",
+								"1",
+								"pessoa"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "endereco",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"logradouro\": \"quadra norte\",\r\n    \"complemento\": \"vila sul\",\r\n    \"cidade\": \"samambaia\",\r\n    \"estado\": \"Rio de Janeiro\",\r\n    \"pais\": \"Brasil\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8090/endereco/pessoa/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"endereco",
+								"pessoa",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "endereco",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"logradouro\": \"quadra norte\",\r\n    \"complemento\": \"vila sul\",\r\n    \"cidade\": \"samambaia\",\r\n    \"estado\": \"Rio de Janeiro\",\r\n    \"pais\": \"Brasil\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8090/endereco/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"endereco",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "endereco",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8090/endereco/3",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"endereco",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
