@@ -25,7 +25,7 @@ public class EnderecoService {
 
     public Endereco adicionar(Integer id, Endereco endereco) throws RegraDeNegocioException {
         endereco.setIdPessoa(id);
-        Pessoa pessoaRecuperada = PessoaRepository.getListaPessoas().stream()
+        PessoaRepository.getListaPessoas().stream()
                 .filter(pessoa -> pessoa.getIdPessoa().equals(id))
                 .findFirst()
                 .orElseThrow(() -> new RegraDeNegocioException("Pessoa não econtrada"));
