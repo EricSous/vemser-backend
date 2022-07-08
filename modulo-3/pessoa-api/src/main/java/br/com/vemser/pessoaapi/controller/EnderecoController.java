@@ -1,5 +1,6 @@
 package br.com.vemser.pessoaapi.controller;
 
+import br.com.vemser.pessoaapi.dtos.EnderecoDTO;
 import br.com.vemser.pessoaapi.entities.Endereco;
 import br.com.vemser.pessoaapi.exceptions.RegraDeNegocioException;
 import br.com.vemser.pessoaapi.service.EnderecoService;
@@ -31,12 +32,12 @@ public class EnderecoController {
     }
 
     @PostMapping("/{idPessoa}")
-    public Endereco adicionarEndereco(@PathVariable("idPessoa") Integer idPessoa, @RequestBody Endereco endereco) throws RegraDeNegocioException {
+    public Endereco adicionarEndereco(@PathVariable("idPessoa") Integer idPessoa, @RequestBody EnderecoDTO endereco) throws RegraDeNegocioException {
         return enderecoService.adicionar(idPessoa,endereco);
     }
 
     @PutMapping("/{idEndereco}")
-    public Endereco editaEndereco(@PathVariable("idEndereco") Integer idEndereco, @RequestBody Endereco endereco) throws Exception {
+    public Endereco editaEndereco(@PathVariable("idEndereco") Integer idEndereco, @RequestBody EnderecoDTO endereco) throws Exception {
         return enderecoService.editar(idEndereco,endereco);
     }
 

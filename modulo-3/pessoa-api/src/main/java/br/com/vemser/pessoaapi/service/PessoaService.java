@@ -1,8 +1,10 @@
 package br.com.vemser.pessoaapi.service;
 
+import br.com.vemser.pessoaapi.dtos.PessoaDTO;
 import br.com.vemser.pessoaapi.entities.Pessoa;
 import br.com.vemser.pessoaapi.exceptions.RegraDeNegocioException;
 import br.com.vemser.pessoaapi.repository.PessoaRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,40 +18,32 @@ public class PessoaService {
     @Autowired
     private PessoaRepository pessoaRepository;
 
-    public PessoaService(){
-        pessoaRepository = new PessoaRepository();
+    private ObjectMapper objectMapper = new ObjectMapper();
+
+    public Pessoa adicionar(PessoaDTO pessoa){
+        Pessoa pessoaEntity = objectMapper.convertValue(pessoa, Pessoa.class);
+        return pessoaRepository.create(pessoaEntity);
     }
 
-    public Pessoa adicionar(Pessoa pessoa){
-        Boolean verificaNome = StringUtils.isBlank(pessoa.getNome());
-        Boolean verificaDataNascimento = StringUtils.isEmpty(pessoa.getCpf());
-        Boolean verificaCPF = StringUtils.isBlank(pessoa.getCpf());
-        Boolean verificaTamanhos = pessoa.getCpf().length() == 11;
-        if(verificaNome && verificaDataNascimento && verificaCPF && verificaTamanhos){
-            System.out.println("Nao e possivel adicionar está pessoa");
-        }else {
-            return pessoaRepository.create(pessoa);
-        }
-        return null;
-    }
-
-    public Pessoa editar(int id, Pessoa pessoa) throws Exception {
-        Pessoa pessoaRecuperada = PessoaRepository.getListaPessoas().stream()
-                .filter(p -> p.getIdPessoa().equals(id))
-                .findFirst()
-                .orElseThrow(() -> new Exception("Pessoa não econtrada"));
-        pessoaRecuperada.setCpf(pessoa.getCpf());
-        pessoaRecuperada.setNome(pessoa.getNome());
-        pessoaRecuperada.setDataNascimento(pessoa.getDataNascimento());
+    public Pessoa editar(int id, PessoaDTO pessoa) throws Exception {
+        Pessoa pessoaEntity = objectMapper.convertValue(pessoa, Pessoa.class);
+        Pessoa pessoaRecuperada = this.verificaPessoa(id);
+        pessoaRecuperada.setCpf(pessoaEntity.getCpf());
+        pessoaRecuperada.setNome(pessoaEntity.getNome());
+        pessoaRecuperada.setDataNascimento(pessoaEntity.getDataNascimento());
         return pessoaRepository.update(pessoaRecuperada);
     }
 
     public void deletar(int id) throws Exception {
-        Pessoa pessoaRecuperada = PessoaRepository.getListaPessoas().stream()
+        Pessoa pessoaRecuperada = this.verificaPessoa(id);
+        pessoaRepository.delete(pessoaRecuperada);
+    }
+
+    public Pessoa verificaPessoa(int id) throws RegraDeNegocioException {
+        return PessoaRepository.getListaPessoas().stream()
                 .filter(pessoa -> pessoa.getIdPessoa().equals(id))
                 .findFirst()
                 .orElseThrow(() -> new RegraDeNegocioException("Pessoa não econtrada"));
-        pessoaRepository.delete(pessoaRecuperada);
     }
 
     public List<Pessoa> listar(){

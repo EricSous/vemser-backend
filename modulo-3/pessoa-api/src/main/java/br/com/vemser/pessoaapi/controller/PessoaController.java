@@ -1,5 +1,6 @@
 package br.com.vemser.pessoaapi.controller;
 
+import br.com.vemser.pessoaapi.dtos.PessoaDTO;
 import br.com.vemser.pessoaapi.entities.Pessoa;
 import br.com.vemser.pessoaapi.properties.PropertieReader;
 import br.com.vemser.pessoaapi.service.PessoaService;
@@ -19,10 +20,6 @@ public class PessoaController {
     @Autowired
     private PropertieReader propertieReader;
 
-    public PessoaController() {
-        pessoaService = new PessoaService();
-    }
-
     @GetMapping("/ambiente")
     public String retornaAmbiente(){
         return propertieReader.getUsuario();
@@ -34,7 +31,7 @@ public class PessoaController {
     }
 
     @PostMapping // localhost:8080/pessoa
-    public Pessoa create(@Valid @RequestBody Pessoa pessoa) {
+    public Pessoa create(@Valid @RequestBody PessoaDTO pessoa) {
         return pessoaService.adicionar(pessoa);
     }
 
@@ -50,7 +47,7 @@ public class PessoaController {
 
     @PutMapping("/{idPessoa}") // localhost:8080/pessoa/1000
     public Pessoa update(@PathVariable("idPessoa") Integer id,
-                         @Valid @RequestBody Pessoa pessoaAtualizar) throws Exception {
+                         @Valid @RequestBody PessoaDTO pessoaAtualizar) throws Exception {
         return pessoaService.editar(id, pessoaAtualizar);
     }
 

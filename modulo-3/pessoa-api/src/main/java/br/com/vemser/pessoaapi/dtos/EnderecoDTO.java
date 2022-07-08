@@ -1,6 +1,6 @@
-package br.com.vemser.pessoaapi.entities;
+package br.com.vemser.pessoaapi.dtos;
 
-
+import br.com.vemser.pessoaapi.entities.TipoEndereco;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,7 +14,7 @@ import javax.validation.constraints.Size;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Endereco {
+public class EnderecoDTO {
 
     private Integer idEndereco;
 
@@ -47,5 +47,4 @@ public class Endereco {
 
     @NotNull
     private Integer numero;
-
 }

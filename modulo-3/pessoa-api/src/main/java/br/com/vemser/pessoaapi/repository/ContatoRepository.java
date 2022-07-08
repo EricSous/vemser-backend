@@ -44,14 +44,12 @@ public class ContatoRepository {
         return listaContatos;
     }
 
-    public Contato updateContato(Integer id,
-                         Contato pessoaAtualizar) throws Exception {
-        Contato contato = new Contato();
-        contato.setDescricao(contato.getDescricao());
-        contato.setNumero(contato.getNumero());
-        contato.setDescricao(contato.getDescricao());
-        contato.setIdPessoa(contato.getIdPessoa());
-        return pessoaAtualizar;
+    public Contato updateContato(Contato contatoAntigo, Contato contatoNovo) throws Exception {
+        contatoAntigo.setDescricao(contatoNovo.getDescricao());
+        contatoAntigo.setNumero(contatoNovo.getNumero());
+        contatoAntigo.setDescricao(contatoNovo.getDescricao());
+        contatoAntigo.setIdPessoa(contatoNovo.getIdPessoa());
+        return contatoAntigo;
     }
 
     public void deleteContato(Contato contato) throws Exception {

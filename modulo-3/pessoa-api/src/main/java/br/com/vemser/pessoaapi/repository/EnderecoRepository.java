@@ -14,11 +14,11 @@ public class EnderecoRepository {
     private AtomicInteger COUNTER = new AtomicInteger();
 
     public EnderecoRepository() {
-        listaEndereco.add(new Endereco(COUNTER.incrementAndGet() /*1*/, 1, "Samambaia Norte", "QS 404", "Taguatinga", "Brasilia", "72140564", TipoEndereco.ofTipo(1), 15, "Brasil"));
-        listaEndereco.add(new Endereco(COUNTER.incrementAndGet() /*1*/, 2, "Samambaia Norte", "QS 404", "Taguatinga", "Brasilia", "72140564", TipoEndereco.ofTipo(2), 16, "Brasil"));
-        listaEndereco.add(new Endereco(COUNTER.incrementAndGet() /*1*/, 3, "Samambaia Norte", "QS 404", "Taguatinga", "Brasilia", "72140564", TipoEndereco.ofTipo(2), 183, "Brasil"));
-        listaEndereco.add(new Endereco(COUNTER.incrementAndGet() /*1*/, 4, "Samambaia Norte", "QS 404", "Taguatinga", "Brasilia", "72140564", TipoEndereco.ofTipo(1), 154, "Brasil"));
-        listaEndereco.add(new Endereco(COUNTER.incrementAndGet() /*1*/, 5, "Samambaia Norte", "QS 404", "Taguatinga", "Brasilia", "72140564", TipoEndereco.ofTipo(2), 66, "Brasil"));
+        listaEndereco.add(new Endereco(COUNTER.incrementAndGet() /*1*/, 1, "Samambaia Norte", "QS 404", "Taguatinga", "Brasilia", "Brasil", "72140564", TipoEndereco.ofTipo(1), 1));
+        listaEndereco.add(new Endereco(COUNTER.incrementAndGet() /*1*/, 2, "Samambaia Norte", "QS 404", "Taguatinga", "Brasilia", "Brasil", "72140564", TipoEndereco.ofTipo(2), 756));
+        listaEndereco.add(new Endereco(COUNTER.incrementAndGet() /*1*/, 3, "Samambaia Norte", "QS 404", "Taguatinga", "Brasilia", "Brasil", "72140564", TipoEndereco.ofTipo(2), 496));
+        listaEndereco.add(new Endereco(COUNTER.incrementAndGet() /*1*/, 4, "Samambaia Norte", "QS 404", "Taguatinga", "Brasilia", "Brasil", "72140564", TipoEndereco.ofTipo(1), 444));
+        listaEndereco.add(new Endereco(COUNTER.incrementAndGet() /*1*/, 5, "Samambaia Norte", "QS 404", "Taguatinga", "Brasilia", "Brasil", "72140564", TipoEndereco.ofTipo(2), 333));
     }
 
     public Endereco create(Endereco endereco) {

@@ -1,5 +1,6 @@
 package br.com.vemser.pessoaapi.controller;
 
+import br.com.vemser.pessoaapi.dtos.ContatoDTO;
 import br.com.vemser.pessoaapi.entities.Contato;
 import br.com.vemser.pessoaapi.exceptions.RegraDeNegocioException;
 import br.com.vemser.pessoaapi.service.ContatoService;
@@ -17,13 +18,8 @@ public class ContatoController {
     @Autowired
     private ContatoService contatoService;
 
-    public ContatoController() {
-        contatoService = new ContatoService();
-    }
-
-
     @PostMapping ("/{idPessoa}")// localhost:8080/contato
-    public Contato create(@PathVariable("idPessoa") Integer id, @RequestBody Contato contato) throws RegraDeNegocioException {
+    public Contato create(@PathVariable("idPessoa") Integer id, @RequestBody ContatoDTO contato) throws RegraDeNegocioException {
         return contatoService.adicionar(id, contato);
     }
 
@@ -33,13 +29,13 @@ public class ContatoController {
     }
 
     @GetMapping("/byIdPessoa") // localhost:8080/contato/byIdPessoa
-    public List<Contato> listContatoByName(@RequestParam("id") int id) {
-        return contatoService.listarPorNome(id);
+    public List<Contato> listContatoById(@RequestParam("id") int id) {
+        return contatoService.listarPorId(id);
     }
 
     @PutMapping("/{idContato}") // localhost:8080/contato/1000
     public Contato update(@PathVariable("idContato") Integer id,
-                         @RequestBody Contato pessoaAtualizar) throws Exception {
+                         @RequestBody ContatoDTO pessoaAtualizar) throws Exception {
         return contatoService.editar(id, pessoaAtualizar);
     }
 
