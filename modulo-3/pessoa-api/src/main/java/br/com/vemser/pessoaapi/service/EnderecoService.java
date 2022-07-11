@@ -12,6 +12,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,22 +22,25 @@ public class EnderecoService {
     @Autowired
     private EnderecoRepository enderecoRepository;
 
+    @Autowired
+    private PessoaService pessoaService;
+
     private ObjectMapper objectMapper = new ObjectMapper();
 
-    public Endereco adicionar(Integer id, EnderecoDTO endereco) throws RegraDeNegocioException {
+    public EnderecoDTO adicionar(Integer id, EnderecoDTO endereco) throws RegraDeNegocioException {
         endereco.setIdPessoa(id);
         Endereco enderecoEntidade = objectMapper.convertValue(endereco, Endereco.class);
-        PessoaRepository.getListaPessoas().stream()
-                .filter(pessoa -> pessoa.getIdPessoa().equals(id))
-                .findFirst()
-                .orElseThrow(() -> new RegraDeNegocioException("Pessoa não econtrada"));
-        return enderecoRepository.create(enderecoEntidade);
+        pessoaService.verificarPessoa(id);
+        enderecoRepository.create(enderecoEntidade);
+        return endereco;
     }
 
-    public Endereco editar(int id, EnderecoDTO enderecoNovo) throws Exception {
+    public EnderecoDTO editar(int id, EnderecoDTO enderecoNovo) throws Exception {
         Endereco enderecoEntidade = objectMapper.convertValue(enderecoNovo, Endereco.class);
         Endereco enderecoAntigo = this.verificaEndereco(id);
-        return enderecoRepository.update(enderecoAntigo,enderecoEntidade);
+        enderecoRepository.update(enderecoAntigo,enderecoEntidade);
+
+        return  enderecoNovo;
     }
 
     public void deletar(int id) throws Exception {
@@ -48,22 +52,40 @@ public class EnderecoService {
         return EnderecoRepository.getListaEndereco().stream()
                 .filter(e -> e.getIdEndereco().equals(id))
                 .findFirst()
-                .orElseThrow(() -> new RegraDeNegocioException("Endereço não econtrada"));
+                .orElseThrow(() -> new RegraDeNegocioException("Endereço não econtrado"));
     }
 
-    public List<Endereco> listar(){
-        return enderecoRepository.list();
+    public List<EnderecoDTO> listar(){
+
+        List<EnderecoDTO> listaDto = new ArrayList<>();
+        for (Endereco endereco : enderecoRepository.list()) {
+            listaDto.add(objectMapper.convertValue(endereco, EnderecoDTO.class));
+        }
+        return listaDto;
     }
 
-    public List<Endereco> listarPorEndereco(int id){
-        return EnderecoRepository.getListaEndereco().stream()
+    public List<EnderecoDTO> listarPorEndereco(int id){
+        List<Endereco> listaEndereco = EnderecoRepository.getListaEndereco().stream()
                 .filter(e -> e.getIdEndereco().equals(id))
                 .collect(Collectors.toList());
+        List<EnderecoDTO> listaDto = new ArrayList<>();
+
+            for (Endereco endereco : listaEndereco) {
+                listaDto.add(objectMapper.convertValue(endereco, EnderecoDTO.class));
+            }
+
+        return listaDto;
     }
 
-    public List<Endereco> listPorPessoa(Integer id) {
-        return EnderecoRepository.getListaEndereco().stream()
+    public List<EnderecoDTO> listPorPessoa(Integer id) {
+        List<Endereco> listaEndereco = EnderecoRepository.getListaEndereco().stream()
                 .filter(e -> e.getIdPessoa().equals(id))
                 .collect(Collectors.toList());
+        List<EnderecoDTO> listaDto = new ArrayList<>();
+
+        for (Endereco endereco : listaEndereco) {
+            listaDto.add(objectMapper.convertValue(endereco, EnderecoDTO.class));
+        }
+        return listaDto;
     }
 }

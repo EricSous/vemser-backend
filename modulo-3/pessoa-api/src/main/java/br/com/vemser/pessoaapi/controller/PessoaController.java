@@ -1,7 +1,6 @@
 package br.com.vemser.pessoaapi.controller;
 
 import br.com.vemser.pessoaapi.dtos.PessoaDTO;
-import br.com.vemser.pessoaapi.entities.Pessoa;
 import br.com.vemser.pessoaapi.properties.PropertieReader;
 import br.com.vemser.pessoaapi.service.PessoaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,22 +30,22 @@ public class PessoaController {
     }
 
     @PostMapping // localhost:8080/pessoa
-    public Pessoa create(@Valid @RequestBody PessoaDTO pessoa) {
+    public PessoaDTO create(@Valid @RequestBody PessoaDTO pessoa) {
         return pessoaService.adicionar(pessoa);
     }
 
     @GetMapping // localhost:8080/pessoa
-    public List<Pessoa> list() {
+    public List<PessoaDTO> list() {
         return pessoaService.listar();
     }
 
     @GetMapping("/byname") // localhost:8080/pessoa/byname?nome=Rafa
-    public List<Pessoa> listByName(@RequestParam("nome") String nome) {
+    public List<PessoaDTO> listByName(@RequestParam("nome") String nome) {
         return pessoaService.listarPorNome(nome);
     }
 
     @PutMapping("/{idPessoa}") // localhost:8080/pessoa/1000
-    public Pessoa update(@PathVariable("idPessoa") Integer id,
+    public PessoaDTO update(@PathVariable("idPessoa") Integer id,
                          @Valid @RequestBody PessoaDTO pessoaAtualizar) throws Exception {
         return pessoaService.editar(id, pessoaAtualizar);
     }

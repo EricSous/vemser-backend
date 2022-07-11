@@ -17,27 +17,27 @@ public class EnderecoController {
     private EnderecoService enderecoService;
 
     @GetMapping
-    public List<Endereco> retornaEndereco(){
+    public List<EnderecoDTO> retornaEndereco(){
         return enderecoService.listar();
     }
 
     @GetMapping("/{idEndereco}")
-    public List<Endereco> retornaEnderecoPorId(@PathVariable("idEndereco") Integer idEndereco){
+    public List<EnderecoDTO> retornaEnderecoPorId(@PathVariable("idEndereco") Integer idEndereco){
         return enderecoService.listarPorEndereco(idEndereco);
     }
 
     @GetMapping("/{idPessoa}/pessoa")
-    public List<Endereco> retornaEnderecoPorPessoa(@PathVariable("idPessoa") Integer idPessoa){
+    public List<EnderecoDTO> retornaEnderecoPorPessoa(@PathVariable("idPessoa") Integer idPessoa){
         return enderecoService.listPorPessoa(idPessoa);
     }
 
     @PostMapping("/{idPessoa}")
-    public Endereco adicionarEndereco(@PathVariable("idPessoa") Integer idPessoa, @RequestBody EnderecoDTO endereco) throws RegraDeNegocioException {
+    public EnderecoDTO adicionarEndereco(@PathVariable("idPessoa") Integer idPessoa, @RequestBody EnderecoDTO endereco) throws RegraDeNegocioException {
         return enderecoService.adicionar(idPessoa,endereco);
     }
 
     @PutMapping("/{idEndereco}")
-    public Endereco editaEndereco(@PathVariable("idEndereco") Integer idEndereco, @RequestBody EnderecoDTO endereco) throws Exception {
+    public EnderecoDTO editaEndereco(@PathVariable("idEndereco") Integer idEndereco, @RequestBody EnderecoDTO endereco) throws Exception {
         return enderecoService.editar(idEndereco,endereco);
     }
 
