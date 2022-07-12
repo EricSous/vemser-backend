@@ -1,5 +1,6 @@
 package br.com.vemser.pessoaapi.service;
 
+import br.com.vemser.pessoaapi.dtos.ContatoCreateDTO;
 import br.com.vemser.pessoaapi.dtos.ContatoDTO;
 import br.com.vemser.pessoaapi.entities.Contato;
 import br.com.vemser.pessoaapi.exceptions.RegraDeNegocioException;
@@ -24,7 +25,7 @@ public class ContatoService {
     @Autowired
     private ObjectMapper objectMapper;
 
-    public ContatoDTO adicionar(Integer id, ContatoDTO contato) throws RegraDeNegocioException {
+    public ContatoDTO adicionar(Integer id, ContatoCreateDTO contato) throws RegraDeNegocioException {
         Contato contatoEntidade = objectMapper.convertValue(contato, Contato.class);
         contatoEntidade.setIdPessoa(id);
         pessoaService.verificarPessoa(id);
@@ -32,7 +33,7 @@ public class ContatoService {
         return objectMapper.convertValue(contatoEntidade, ContatoDTO.class);
     }
 
-    public ContatoDTO editar(int id, ContatoDTO contato) throws RegraDeNegocioException {
+    public ContatoDTO editar(int id, ContatoCreateDTO contato) throws RegraDeNegocioException {
         System.out.println();
         Contato contatoEntidade = objectMapper.convertValue(contato, Contato.class);
         Contato contatoRecuperado = this.verificaPessoa(id);

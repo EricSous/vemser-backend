@@ -1,5 +1,6 @@
 package br.com.vemser.pessoaapi.service;
 
+import br.com.vemser.pessoaapi.dtos.PessoaCreateDTO;
 import br.com.vemser.pessoaapi.dtos.PessoaDTO;
 import br.com.vemser.pessoaapi.entities.Pessoa;
 import br.com.vemser.pessoaapi.exceptions.RegraDeNegocioException;
@@ -24,15 +25,15 @@ public class PessoaService {
     @Autowired
     private EmailService emailService;
 
-    public PessoaDTO adicionar(PessoaDTO pessoa){
+    public PessoaDTO adicionar(PessoaCreateDTO pessoa){
         Pessoa pessoaEntity = objectMapper.convertValue(pessoa, Pessoa.class);
         pessoaRepository.create(pessoaEntity);
         PessoaDTO pessoaDTO = objectMapper.convertValue(pessoaEntity,PessoaDTO.class);
-        emailService.enviarEmailCrud(pessoa,"email-template.ftl");
+        emailService.enviarEmailCrud(pessoaDTO,"email-template.ftl");
         return pessoaDTO;
     }
 
-    public PessoaDTO editar(int id, PessoaDTO pessoa) throws RegraDeNegocioException {
+    public PessoaDTO editar(int id, PessoaCreateDTO pessoa) throws RegraDeNegocioException {
         Pessoa pessoaEntity = objectMapper.convertValue(pessoa, Pessoa.class);
         Pessoa pessoaRecuperada = this.verificarPessoa(id);
         pessoaRecuperada.setCpf(pessoaEntity.getCpf());
@@ -40,7 +41,7 @@ public class PessoaService {
         pessoaRecuperada.setDataNascimento(pessoaEntity.getDataNascimento());
         PessoaDTO pessoaDto = objectMapper.convertValue(pessoaRepository.update(pessoaRecuperada),PessoaDTO.class);
 
-        emailService.enviarEmailCrud(pessoa,"email-template2.ftl");
+        emailService.enviarEmailCrud(pessoaDto,"email-template2.ftl");
         return pessoaDto;
     }
 

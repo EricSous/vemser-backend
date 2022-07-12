@@ -1,5 +1,6 @@
 package br.com.vemser.pessoaapi.service;
 
+import br.com.vemser.pessoaapi.dtos.EnderecoCreateDTO;
 import br.com.vemser.pessoaapi.dtos.EnderecoDTO;
 import br.com.vemser.pessoaapi.dtos.PessoaDTO;
 import br.com.vemser.pessoaapi.entities.Contato;
@@ -31,7 +32,7 @@ public class EnderecoService {
 
     private ObjectMapper objectMapper = new ObjectMapper();
 
-    public EnderecoDTO adicionar(Integer id, EnderecoDTO endereco) throws RegraDeNegocioException {
+    public EnderecoDTO adicionar(Integer id, EnderecoCreateDTO endereco) throws RegraDeNegocioException {
         endereco.setIdPessoa(id);
         Endereco enderecoEntidade = objectMapper.convertValue(endereco, Endereco.class);
         pessoaService.verificarPessoa(id);
@@ -40,7 +41,7 @@ public class EnderecoService {
         return enderecoDTO;
     }
 
-    public EnderecoDTO editar(int id, EnderecoDTO enderecoNovo) throws RegraDeNegocioException {
+    public EnderecoDTO editar(int id, EnderecoCreateDTO enderecoNovo) throws RegraDeNegocioException {
         Endereco enderecoEntidade = objectMapper.convertValue(enderecoNovo, Endereco.class);
         Endereco enderecoAntigo = this.verificaEndereco(id);
         EnderecoDTO enderecoDTO = objectMapper.convertValue(enderecoRepository.update(enderecoAntigo,enderecoEntidade),EnderecoDTO.class);
