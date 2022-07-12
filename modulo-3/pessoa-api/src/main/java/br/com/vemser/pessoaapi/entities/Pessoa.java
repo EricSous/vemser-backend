@@ -1,5 +1,6 @@
 package br.com.vemser.pessoaapi.entities;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,8 +17,9 @@ public class Pessoa {
 
     private Integer idPessoa;
 
+    @Schema(description = "Nome da Pessoa")
     @NotEmpty
-    @NotNull
+    //@Getter(AccessLevel.NONE)
     private String nome;
 
     @Past
