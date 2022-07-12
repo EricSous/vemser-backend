@@ -36,8 +36,7 @@ public class ContatoService {
         System.out.println();
         Contato contatoEntidade = objectMapper.convertValue(contato, Contato.class);
         Contato contatoRecuperado = this.verificaPessoa(id);
-        contatoRepository.updateContato(contatoRecuperado, contatoEntidade);
-        return contato;
+        return objectMapper.convertValue(contatoRepository.updateContato(contatoRecuperado, contatoEntidade), ContatoDTO.class);
     }
 
     public void deletar(int id) throws Exception {
