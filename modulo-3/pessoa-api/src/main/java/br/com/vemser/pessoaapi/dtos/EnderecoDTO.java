@@ -47,4 +47,16 @@ public class EnderecoDTO {
 
     @NotNull
     private Integer numero;
+
+    @Override
+    public String toString() {
+        return " logradouro: " + logradouro +
+                "\n complemento: " + complemento +
+                "\n cidade: " + cidade +
+                "\n estado: " + estado +
+                "\n pais: " + pais +
+                "\n cep: " + cep +
+                "\n tipoEndereco: " + tipoEndereco +
+                "\n numero: " + numero;
+    }
 }

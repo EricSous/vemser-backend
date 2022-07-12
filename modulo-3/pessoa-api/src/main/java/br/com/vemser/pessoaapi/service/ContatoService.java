@@ -21,14 +21,15 @@ public class ContatoService {
     @Autowired
     private PessoaService pessoaService;
 
-    private ObjectMapper objectMapper = new ObjectMapper();
+    @Autowired
+    private ObjectMapper objectMapper;
 
     public ContatoDTO adicionar(Integer id, ContatoDTO contato) throws RegraDeNegocioException {
         Contato contatoEntidade = objectMapper.convertValue(contato, Contato.class);
         contatoEntidade.setIdPessoa(id);
         pessoaService.verificarPessoa(id);
         contatoRepository.createContato(contatoEntidade);
-        return contato;
+        return objectMapper.convertValue(contatoEntidade, ContatoDTO.class);
     }
 
     public ContatoDTO editar(int id, ContatoDTO contato) throws Exception {

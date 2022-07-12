@@ -20,11 +20,11 @@ public class PessoaRepository {
 
     public PessoaRepository() throws ParseException {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy"); //18/10/2020
-        listaPessoas.add(new Pessoa(COUNTER.incrementAndGet() /*1*/, "Maicon Gerardi", formatter.parse("10/10/1990"), "12345678910"));
-        listaPessoas.add(new Pessoa(COUNTER.incrementAndGet() /*2*/, "Charles Pereira", formatter.parse("08/05/1985"), "12345678911"));
-        listaPessoas.add(new Pessoa(COUNTER.incrementAndGet() /*3*/, "Marina Oliveira", formatter.parse("30/03/1970"), "12345678912"));
-        listaPessoas.add(new Pessoa(COUNTER.incrementAndGet() /*4*/, "Rafael Lazzari", formatter.parse("01/07/1990"), "12345678916"));
-        listaPessoas.add(new Pessoa(COUNTER.incrementAndGet() /*5*/, "Ana", formatter.parse("01/07/1990"), "12345678917"));
+        listaPessoas.add(new Pessoa(COUNTER.incrementAndGet() /*1*/, "Maicon Gerardi",  formatter.parse("10/10/1990"), "12345678910","ericandradedesousa8@hotmail.com"));
+        listaPessoas.add(new Pessoa(COUNTER.incrementAndGet() /*2*/, "Charles Pereira", formatter.parse("08/05/1985"), "12345678911","ericandradedesousa8@hotmail.com"));
+        listaPessoas.add(new Pessoa(COUNTER.incrementAndGet() /*3*/, "Marina Oliveira", formatter.parse("30/03/1970"), "12345678912","ericandradedesousa8@hotmail.com"));
+        listaPessoas.add(new Pessoa(COUNTER.incrementAndGet() /*4*/, "Rafael Lazzari", formatter.parse("01/07/1990"), "12345678916","ericandradedesousa8@hotmail.com"));
+        listaPessoas.add(new Pessoa(COUNTER.incrementAndGet() /*5*/, "Ana", formatter.parse("01/07/1990"), "12345678917","ericandradedesousa8@hotmail.com"));
     }
 
     public Pessoa create(Pessoa pessoa) {
@@ -42,8 +42,9 @@ public class PessoaRepository {
         return pessoaAtualizada;
     }
 
-    public void delete(Pessoa pessoaRecuperada) throws Exception {
+    public Pessoa delete(Pessoa pessoaRecuperada) throws Exception {
         listaPessoas.remove(pessoaRecuperada);
+        return pessoaRecuperada;
     }
 
     public static List<Pessoa> getListaPessoas() {

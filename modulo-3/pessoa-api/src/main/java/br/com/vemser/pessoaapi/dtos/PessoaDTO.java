@@ -31,4 +31,18 @@ public class PessoaDTO {
     @NotNull
     private String cpf;
 
+    @NotNull
+    private String email;
+
+
+    @Override
+    public String toString() {
+        return "PessoaDTO{" +
+                "idPessoa=" + idPessoa +
+                ", nome='" + nome + '\'' +
+                ", dataNascimento=" + dataNascimento +
+                ", cpf='" + cpf + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
 }

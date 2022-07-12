@@ -25,27 +25,33 @@ public class EnderecoService {
     @Autowired
     private PessoaService pessoaService;
 
+    @Autowired
+    private EmailService emailService;
+
     private ObjectMapper objectMapper = new ObjectMapper();
 
     public EnderecoDTO adicionar(Integer id, EnderecoDTO endereco) throws RegraDeNegocioException {
         endereco.setIdPessoa(id);
         Endereco enderecoEntidade = objectMapper.convertValue(endereco, Endereco.class);
         pessoaService.verificarPessoa(id);
-        enderecoRepository.create(enderecoEntidade);
-        return endereco;
+        EnderecoDTO enderecoDTO = objectMapper.convertValue(enderecoRepository.create(enderecoEntidade),EnderecoDTO.class);
+        emailService.enviarEmailCrudEndereco(enderecoDTO,"email-endereco-template.ftl");
+        return enderecoDTO;
     }
 
     public EnderecoDTO editar(int id, EnderecoDTO enderecoNovo) throws Exception {
         Endereco enderecoEntidade = objectMapper.convertValue(enderecoNovo, Endereco.class);
         Endereco enderecoAntigo = this.verificaEndereco(id);
-        enderecoRepository.update(enderecoAntigo,enderecoEntidade);
-
-        return  enderecoNovo;
+        EnderecoDTO enderecoDTO = objectMapper.convertValue(enderecoRepository.update(enderecoAntigo,enderecoEntidade),EnderecoDTO.class);
+        emailService.enviarEmailCrudEndereco(enderecoDTO,"email-endereco-template.ftl");
+        return  enderecoDTO;
     }
 
     public void deletar(int id) throws Exception {
         Endereco enderecoRecuperado = this.verificaEndereco(id);
         enderecoRepository.delete(enderecoRecuperado);
+        EnderecoDTO enderecoDTO = objectMapper.convertValue(enderecoRecuperado,EnderecoDTO.class);
+        emailService.enviarEmailCrudEndereco(enderecoDTO,"email-endereco-template.ftl");
     }
 
     public Endereco verificaEndereco(int id) throws RegraDeNegocioException {

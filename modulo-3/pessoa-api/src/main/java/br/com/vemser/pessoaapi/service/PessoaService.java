@@ -1,17 +1,17 @@
 package br.com.vemser.pessoaapi.service;
 
-import br.com.vemser.pessoaapi.dtos.EnderecoDTO;
 import br.com.vemser.pessoaapi.dtos.PessoaDTO;
-import br.com.vemser.pessoaapi.entities.Endereco;
 import br.com.vemser.pessoaapi.entities.Pessoa;
 import br.com.vemser.pessoaapi.exceptions.RegraDeNegocioException;
 import br.com.vemser.pessoaapi.repository.PessoaRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.commons.lang3.StringUtils;
+import freemarker.template.Configuration;
+import org.hibernate.validator.internal.constraintvalidators.bv.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Service;
 
-import javax.validation.Valid;
+import javax.mail.MessagingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,12 +21,18 @@ public class PessoaService {
     @Autowired
     private PessoaRepository pessoaRepository;
 
-    private ObjectMapper objectMapper = new ObjectMapper();
+    @Autowired
+    private ObjectMapper objectMapper;
+
+    @Autowired
+    private EmailService emailService;
 
     public PessoaDTO adicionar(PessoaDTO pessoa){
         Pessoa pessoaEntity = objectMapper.convertValue(pessoa, Pessoa.class);
         pessoaRepository.create(pessoaEntity);
-        return pessoa;
+        PessoaDTO pessoaDTO = objectMapper.convertValue(pessoaEntity,PessoaDTO.class);
+        emailService.enviarEmailCrud(pessoa,"email-template.ftl");
+        return pessoaDTO;
     }
 
     public PessoaDTO editar(int id, PessoaDTO pessoa) throws Exception {
@@ -35,13 +41,16 @@ public class PessoaService {
         pessoaRecuperada.setCpf(pessoaEntity.getCpf());
         pessoaRecuperada.setNome(pessoaEntity.getNome());
         pessoaRecuperada.setDataNascimento(pessoaEntity.getDataNascimento());
-        pessoaRepository.update(pessoaRecuperada);
-        return pessoa;
+        PessoaDTO pessoaDto = objectMapper.convertValue(pessoaRepository.update(pessoaRecuperada),PessoaDTO.class);
+
+        emailService.enviarEmailCrud(pessoa,"email-template2.ftl");
+        return pessoaDto;
     }
 
     public void deletar(int id) throws Exception {
         Pessoa pessoaRecuperada = this.verificarPessoa(id);
-        pessoaRepository.delete(pessoaRecuperada);
+        PessoaDTO pessoaDTO = objectMapper.convertValue(pessoaRepository.delete(pessoaRecuperada),PessoaDTO.class);
+        emailService.enviarEmailCrud(pessoaDTO,"email-template3.ftl");
     }
 
     public Pessoa verificarPessoa(int id) throws RegraDeNegocioException {

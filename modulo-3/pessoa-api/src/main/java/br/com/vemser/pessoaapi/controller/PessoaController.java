@@ -6,6 +6,7 @@ import br.com.vemser.pessoaapi.service.PessoaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -30,7 +31,7 @@ public class PessoaController {
     }
 
     @PostMapping // localhost:8080/pessoa
-    public PessoaDTO create(@Valid @RequestBody PessoaDTO pessoa) {
+    public PessoaDTO create(@Valid @RequestBody PessoaDTO pessoa) throws MessagingException {
         return pessoaService.adicionar(pessoa);
     }
 

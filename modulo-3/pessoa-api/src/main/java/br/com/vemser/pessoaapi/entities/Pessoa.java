@@ -28,5 +28,8 @@ public class Pessoa {
     @NotNull
     private String cpf;
 
+    @NotNull
+    private String email;
+
 
 }
