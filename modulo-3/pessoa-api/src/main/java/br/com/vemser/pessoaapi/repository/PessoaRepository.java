@@ -60,16 +60,4 @@ public class PessoaRepository {
                 .filter(pessoa -> pessoa.getNome().toUpperCase().contains(nome.toUpperCase()))
                 .collect(Collectors.toList());
     }
-
-    public Pessoa peopleByName(String nome) {
-        return listaPessoas.stream()
-                .filter(pessoa -> pessoa.getNome().toUpperCase().contains(nome.toUpperCase()))
-                .findFirst().orElse(null);
-    }
-
-    public Pessoa peopleById(int id) {
-        return listaPessoas.stream()
-                .filter(pessoa -> pessoa.getIdPessoa().equals(id))
-                .findFirst().orElse(null);
-    }
 }

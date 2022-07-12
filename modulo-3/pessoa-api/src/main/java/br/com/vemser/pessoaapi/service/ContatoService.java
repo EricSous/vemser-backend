@@ -28,7 +28,7 @@ public class ContatoService {
     public ContatoDTO adicionar(Integer id, ContatoCreateDTO contato) throws RegraDeNegocioException {
         Contato contatoEntidade = objectMapper.convertValue(contato, Contato.class);
         contatoEntidade.setIdPessoa(id);
-        pessoaService.verificarPessoa(id);
+        pessoaService.pessoaPorId(id);
         contatoRepository.createContato(contatoEntidade);
         return objectMapper.convertValue(contatoEntidade, ContatoDTO.class);
     }
@@ -49,12 +49,14 @@ public class ContatoService {
         return ContatoRepository.getListaContatos().stream()
                 .filter(pessoa -> pessoa.getIdContato().equals(id))
                 .findFirst()
-                .orElseThrow(() -> new RegraDeNegocioException("Contato não econtrado"));
+                .orElseThrow(() -> new RegraDeNegocioException("Contato não encontrado"));
     }
 
     public List<ContatoDTO> listar() {
         List<Contato> listaDto = contatoRepository.list();
-        return listaDto.stream().map(contato -> objectMapper.convertValue(contato,ContatoDTO.class)).collect(Collectors.toList());
+        return listaDto.stream()
+                .map(contato -> objectMapper.convertValue(contato, ContatoDTO.class))
+                .collect(Collectors.toList());
     }
 
     public List<ContatoDTO> listarPorId(int id) {

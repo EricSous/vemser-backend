@@ -1,5 +1,6 @@
 package br.com.vemser.pessoaapi.controller;
 
+import br.com.vemser.pessoaapi.dtos.PessoaCreateDTO;
 import br.com.vemser.pessoaapi.dtos.PessoaDTO;
 import br.com.vemser.pessoaapi.exceptions.RegraDeNegocioException;
 import br.com.vemser.pessoaapi.properties.PropertieReader;
@@ -23,17 +24,33 @@ public class PessoaController {
     @Autowired
     private PropertieReader propertieReader;
 
+    @Operation(summary = "Retorna o ambiente utilizado", description = "Mostra qual o ambiente do projeto")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(responseCode = "200", description = "Retorna o ambiente"),
+                    @ApiResponse(responseCode = "403", description = "Você não tem permissão para acessar este recurso"),
+                    @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção")
+            }
+    )
     @GetMapping("/ambiente")
-    public String retornaAmbiente(){
+    public String retornaAmbiente() {
         return propertieReader.getUsuario();
     }
 
+    @Operation(summary = "Hello World!!", description = "Hello World")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(responseCode = "200", description = "Retorna mensagem Hello World"),
+                    @ApiResponse(responseCode = "403", description = "Você não tem permissão para acessar este recurso"),
+                    @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção")
+            }
+    )
     @GetMapping("/hello") // localhost:8080/pessoa/hello
     public String hello() {
         return "Hello world!";
     }
 
-    @Operation(summary = "listar pessoas", description = "Lista todas as pessoas do banco")
+    @Operation(summary = "Listar pessoas", description = "Lista todas as pessoas do banco")
     @ApiResponses(
             value = {
                     @ApiResponse(responseCode = "200", description = "Retorna a lista de pessoas"),
@@ -46,7 +63,7 @@ public class PessoaController {
         return pessoaService.listar();
     }
 
-    @Operation(summary = "listar pessoas pelo nome", description = "Lista todas as pessoas do banco com o nome especificado")
+    @Operation(summary = "Listar pessoas pelo nome", description = "Lista todas as pessoas do banco com o nome especificado")
     @ApiResponses(
             value = {
                     @ApiResponse(responseCode = "200", description = "Retorna as pessoas com o nome"),
@@ -59,7 +76,7 @@ public class PessoaController {
         return pessoaService.listarPorNome(nome);
     }
 
-    @Operation(summary = "criação de pessoa", description = "Cria uma nova pessoa")
+    @Operation(summary = "Criação de pessoa", description = "Cria uma nova pessoa")
     @ApiResponses(
             value = {
                     @ApiResponse(responseCode = "200", description = "Cria uma pessoa"),
@@ -68,11 +85,11 @@ public class PessoaController {
             }
     )
     @PostMapping // localhost:8080/pessoa
-    public PessoaDTO create(@Valid @RequestBody PessoaDTO pessoa){
+    public PessoaDTO create(@Valid @RequestBody PessoaCreateDTO pessoa) {
         return pessoaService.adicionar(pessoa);
     }
 
-    @Operation(summary = "atualiza uma pessoa", description = "atualiza uma nova pessoa pelo id")
+    @Operation(summary = "Atualiza uma pessoa", description = "atualiza uma nova pessoa pelo id")
     @ApiResponses(
             value = {
                     @ApiResponse(responseCode = "200", description = "Atualiza uma pessoa"),
@@ -82,11 +99,11 @@ public class PessoaController {
     )
     @PutMapping("/{idPessoa}") // localhost:8080/pessoa/1000
     public PessoaDTO update(@PathVariable("idPessoa") Integer id,
-                         @Valid @RequestBody PessoaDTO pessoaAtualizar) throws RegraDeNegocioException {
+                            @Valid @RequestBody PessoaCreateDTO pessoaAtualizar) throws RegraDeNegocioException {
         return pessoaService.editar(id, pessoaAtualizar);
     }
 
-    @Operation(summary = "deleta uma pessoa", description = "Deleta uma nova pessoa pelo id")
+    @Operation(summary = "Deleta uma pessoa", description = "Deleta uma nova pessoa pelo id")
     @ApiResponses(
             value = {
                     @ApiResponse(responseCode = "200", description = "Deletado a pessoa"),

@@ -35,51 +35,56 @@ public class EnderecoService {
     public EnderecoDTO adicionar(Integer id, EnderecoCreateDTO endereco) throws RegraDeNegocioException {
         endereco.setIdPessoa(id);
         Endereco enderecoEntidade = objectMapper.convertValue(endereco, Endereco.class);
-        pessoaService.verificarPessoa(id);
-        EnderecoDTO enderecoDTO = objectMapper.convertValue(enderecoRepository.create(enderecoEntidade),EnderecoDTO.class);
-        emailService.enviarEmailCrudEndereco(enderecoDTO,"email-endereco-template.ftl");
+        pessoaService.pessoaPorId(id);
+        EnderecoDTO enderecoDTO = objectMapper.convertValue(enderecoRepository.create(enderecoEntidade), EnderecoDTO.class);
+        emailService.enviarEmailCrudEndereco(enderecoDTO, "email-endereco-template.ftl");
         return enderecoDTO;
     }
 
     public EnderecoDTO editar(int id, EnderecoCreateDTO enderecoNovo) throws RegraDeNegocioException {
         Endereco enderecoEntidade = objectMapper.convertValue(enderecoNovo, Endereco.class);
         Endereco enderecoAntigo = this.verificaEndereco(id);
-        EnderecoDTO enderecoDTO = objectMapper.convertValue(enderecoRepository.update(enderecoAntigo,enderecoEntidade),EnderecoDTO.class);
-        emailService.enviarEmailCrudEndereco(enderecoDTO,"email-endereco-template.ftl");
-        return  enderecoDTO;
+        EnderecoDTO enderecoDTO = objectMapper.convertValue(enderecoRepository.update(enderecoAntigo, enderecoEntidade), EnderecoDTO.class);
+        emailService.enviarEmailCrudEndereco(enderecoDTO, "email-endereco-template.ftl");
+        return enderecoDTO;
     }
 
     public void deletar(int id) throws RegraDeNegocioException {
         Endereco enderecoRecuperado = this.verificaEndereco(id);
         enderecoRepository.delete(enderecoRecuperado);
-        EnderecoDTO enderecoDTO = objectMapper.convertValue(enderecoRecuperado,EnderecoDTO.class);
-        emailService.enviarEmailCrudEndereco(enderecoDTO,"email-endereco-template.ftl");
+        EnderecoDTO enderecoDTO = objectMapper.convertValue(enderecoRecuperado, EnderecoDTO.class);
+        emailService.enviarEmailCrudEndereco(enderecoDTO, "email-endereco-template.ftl");
     }
 
     public Endereco verificaEndereco(int id) throws RegraDeNegocioException {
         return EnderecoRepository.getListaEndereco().stream()
                 .filter(e -> e.getIdEndereco().equals(id))
                 .findFirst()
-                .orElseThrow(() -> new RegraDeNegocioException("Endereço não econtrado"));
+                .orElseThrow(() -> new RegraDeNegocioException("Endereço não encontrado"));
     }
 
-    public List<EnderecoDTO> listar(){
+    public List<EnderecoDTO> listar() {
         List<Endereco> listaEndereco = enderecoRepository.list();
-        return listaEndereco.stream().map(endereco -> objectMapper.convertValue(endereco, EnderecoDTO.class)).collect(Collectors.toList());
+        return listaEndereco.stream()
+                .map(endereco -> objectMapper.convertValue(endereco, EnderecoDTO.class))
+                .collect(Collectors.toList());
     }
 
-    public List<EnderecoDTO> listarPorEndereco(int id){
+    public List<EnderecoDTO> listarPorEndereco(int id) {
         List<Endereco> listaEndereco = EnderecoRepository.getListaEndereco().stream()
                 .filter(e -> e.getIdEndereco().equals(id))
                 .collect(Collectors.toList());
-
-        return listaEndereco.stream().map(endereco -> objectMapper.convertValue(endereco, EnderecoDTO.class)).collect(Collectors.toList());
+        return listaEndereco.stream()
+                .map(endereco -> objectMapper.convertValue(endereco, EnderecoDTO.class))
+                .collect(Collectors.toList());
     }
 
     public List<EnderecoDTO> listPorPessoa(Integer id) {
         List<Endereco> listaEndereco = EnderecoRepository.getListaEndereco().stream()
                 .filter(e -> e.getIdPessoa().equals(id))
                 .collect(Collectors.toList());
-        return listaEndereco.stream().map(endereco -> objectMapper.convertValue(endereco, EnderecoDTO.class)).collect(Collectors.toList());
+        return listaEndereco.stream()
+                .map(endereco -> objectMapper.convertValue(endereco, EnderecoDTO.class))
+                .collect(Collectors.toList());
     }
 }

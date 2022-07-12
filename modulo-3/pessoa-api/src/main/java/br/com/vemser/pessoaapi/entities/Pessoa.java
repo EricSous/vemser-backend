@@ -17,7 +17,6 @@ public class Pessoa {
 
     private Integer idPessoa;
 
-    @Schema(description = "Nome da Pessoa")
     @NotEmpty
     //@Getter(AccessLevel.NONE)
     private String nome;

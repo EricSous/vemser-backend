@@ -2,6 +2,7 @@ package br.com.vemser.pessoaapi.service;
 
 import br.com.vemser.pessoaapi.dtos.EnderecoDTO;
 import br.com.vemser.pessoaapi.dtos.PessoaDTO;
+import br.com.vemser.pessoaapi.exceptions.RegraDeNegocioException;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import lombok.RequiredArgsConstructor;
@@ -131,7 +132,7 @@ public class EmailService {
         }
     }
 
-    public String getEnderecoTemplate(EnderecoDTO enderecoDTO, String templateNome) throws IOException, TemplateException {
+    public String getEnderecoTemplate(EnderecoDTO enderecoDTO, String templateNome) throws IOException, TemplateException, RegraDeNegocioException {
         Map<String, Object> dados = new HashMap<>();
 
         dados.put("logradouro", enderecoDTO.getLogradouro());
@@ -157,7 +158,7 @@ public class EmailService {
 
             emailSender.send(mimeMessageHelper.getMimeMessage());
             System.out.println("Email enviado com sucesso");
-        } catch (MessagingException | TemplateException | IOException e) {
+        } catch (MessagingException | TemplateException | IOException | RegraDeNegocioException e) {
             e.printStackTrace();
         }
     }
