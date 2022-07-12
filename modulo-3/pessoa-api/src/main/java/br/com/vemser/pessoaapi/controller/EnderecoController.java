@@ -37,12 +37,12 @@ public class EnderecoController {
     }
 
     @PutMapping("/{idEndereco}")
-    public EnderecoDTO editaEndereco(@PathVariable("idEndereco") Integer idEndereco, @RequestBody EnderecoDTO endereco) throws Exception {
+    public EnderecoDTO editaEndereco(@PathVariable("idEndereco") Integer idEndereco, @RequestBody EnderecoDTO endereco) throws RegraDeNegocioException {
         return enderecoService.editar(idEndereco,endereco);
     }
 
     @DeleteMapping("/{idEndereco}")
-    public void deletaEndereco(@PathVariable("idEndereco") Integer idEndereco) throws Exception {
+    public void deletaEndereco(@PathVariable("idEndereco") Integer idEndereco) throws RegraDeNegocioException {
         enderecoService.deletar(idEndereco);
     }
 }

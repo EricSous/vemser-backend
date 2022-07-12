@@ -37,12 +37,12 @@ public class PessoaRepository {
         return listaPessoas;
     }
 
-    public Pessoa update(Pessoa pessoaAtualizada) throws Exception {
+    public Pessoa update(Pessoa pessoaAtualizada){
         listaPessoas.add(pessoaAtualizada);
         return pessoaAtualizada;
     }
 
-    public Pessoa delete(Pessoa pessoaRecuperada) throws Exception {
+    public Pessoa delete(Pessoa pessoaRecuperada){
         listaPessoas.remove(pessoaRecuperada);
         return pessoaRecuperada;
     }

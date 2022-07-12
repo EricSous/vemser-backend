@@ -16,33 +16,7 @@ import java.util.Date;
 @Getter
 @Setter
 @NoArgsConstructor
-public class PessoaDTO {
+public class PessoaDTO extends PessoaCreateDTO{
     private Integer idPessoa;
 
-    @NotEmpty
-    @NotNull
-    private String nome;
-
-    @Past
-    @NotNull
-    private Date dataNascimento;
-
-    @Size(max = 11, min = 11)
-    @NotNull
-    private String cpf;
-
-    @NotNull
-    private String email;
-
-
-    @Override
-    public String toString() {
-        return "PessoaDTO{" +
-                "idPessoa=" + idPessoa +
-                ", nome='" + nome + '\'' +
-                ", dataNascimento=" + dataNascimento +
-                ", cpf='" + cpf + '\'' +
-                ", email='" + email + '\'' +
-                '}';
-    }
 }

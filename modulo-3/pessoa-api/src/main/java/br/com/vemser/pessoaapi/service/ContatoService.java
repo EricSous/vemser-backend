@@ -32,19 +32,19 @@ public class ContatoService {
         return objectMapper.convertValue(contatoEntidade, ContatoDTO.class);
     }
 
-    public ContatoDTO editar(int id, ContatoDTO contato) throws Exception {
+    public ContatoDTO editar(int id, ContatoDTO contato) throws RegraDeNegocioException {
         System.out.println();
         Contato contatoEntidade = objectMapper.convertValue(contato, Contato.class);
         Contato contatoRecuperado = this.verificaPessoa(id);
         return objectMapper.convertValue(contatoRepository.updateContato(contatoRecuperado, contatoEntidade), ContatoDTO.class);
     }
 
-    public void deletar(int id) throws Exception {
+    public void deletar(int id) throws RegraDeNegocioException {
         Contato pessoaRecuperada = this.verificaPessoa(id);
         contatoRepository.deleteContato(pessoaRecuperada);
     }
 
-    public Contato verificaPessoa(int id) throws Exception {
+    public Contato verificaPessoa(int id) throws RegraDeNegocioException {
         return ContatoRepository.getListaContatos().stream()
                 .filter(pessoa -> pessoa.getIdContato().equals(id))
                 .findFirst()
@@ -52,11 +52,8 @@ public class ContatoService {
     }
 
     public List<ContatoDTO> listar() {
-        List<ContatoDTO> listaDto = new ArrayList<>();
-        for (Contato contato : contatoRepository.list()) {
-            listaDto.add(objectMapper.convertValue(contato, ContatoDTO.class));
-        }
-        return listaDto;
+        List<Contato> listaDto = contatoRepository.list();
+        return listaDto.stream().map(contato -> objectMapper.convertValue(contato,ContatoDTO.class)).collect(Collectors.toList());
     }
 
     public List<ContatoDTO> listarPorId(int id) {

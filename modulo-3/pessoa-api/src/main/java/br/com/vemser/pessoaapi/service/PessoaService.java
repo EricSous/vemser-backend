@@ -5,15 +5,12 @@ import br.com.vemser.pessoaapi.entities.Pessoa;
 import br.com.vemser.pessoaapi.exceptions.RegraDeNegocioException;
 import br.com.vemser.pessoaapi.repository.PessoaRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import freemarker.template.Configuration;
-import org.hibernate.validator.internal.constraintvalidators.bv.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Service;
 
-import javax.mail.MessagingException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PessoaService {
@@ -35,7 +32,7 @@ public class PessoaService {
         return pessoaDTO;
     }
 
-    public PessoaDTO editar(int id, PessoaDTO pessoa) throws Exception {
+    public PessoaDTO editar(int id, PessoaDTO pessoa) throws RegraDeNegocioException {
         Pessoa pessoaEntity = objectMapper.convertValue(pessoa, Pessoa.class);
         Pessoa pessoaRecuperada = this.verificarPessoa(id);
         pessoaRecuperada.setCpf(pessoaEntity.getCpf());
@@ -47,7 +44,7 @@ public class PessoaService {
         return pessoaDto;
     }
 
-    public void deletar(int id) throws Exception {
+    public void deletar(int id) throws RegraDeNegocioException {
         Pessoa pessoaRecuperada = this.verificarPessoa(id);
         PessoaDTO pessoaDTO = objectMapper.convertValue(pessoaRepository.delete(pessoaRecuperada),PessoaDTO.class);
         emailService.enviarEmailCrud(pessoaDTO,"email-template3.ftl");
@@ -61,11 +58,8 @@ public class PessoaService {
     }
 
     public List<PessoaDTO> listar(){
-        List<PessoaDTO> listaDto = new ArrayList<>();
-        for (Pessoa pessoa : pessoaRepository.list()) {
-            listaDto.add(objectMapper.convertValue(pessoa, PessoaDTO.class));
-        }
-        return listaDto;
+        List<Pessoa> listaDto = pessoaRepository.list();
+        return listaDto.stream().map(pessoa -> objectMapper.convertValue(pessoa,PessoaDTO.class)).collect(Collectors.toList());
     }
 
     public List<PessoaDTO> listarPorNome(String nome){

@@ -40,12 +40,12 @@ public class ContatoController {
 
     @PutMapping("/{idContato}") // localhost:8080/contato/1000
     public ContatoDTO update(@PathVariable("idContato") Integer id,
-                         @RequestBody ContatoDTO pessoaAtualizar) throws Exception {
+                         @RequestBody ContatoDTO pessoaAtualizar) throws RegraDeNegocioException {
         return contatoService.editar(id, pessoaAtualizar);
     }
 
     @DeleteMapping("/{idContato}") // localhost:8080/contato/10
-    public void delete(@PathVariable("idContato") Integer id) throws Exception {
+    public void delete(@PathVariable("idContato") Integer id) throws RegraDeNegocioException {
         contatoService.deletar(id);
     }
 }

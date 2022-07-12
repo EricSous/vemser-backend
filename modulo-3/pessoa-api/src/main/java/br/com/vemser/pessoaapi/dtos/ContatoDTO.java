@@ -14,21 +14,8 @@ import javax.validation.constraints.Size;
 @Getter
 @Setter
 @NoArgsConstructor
-public class ContatoDTO {
+public class ContatoDTO extends ContatoCreateDTO{
 
     private Integer idContato;
-
-    private Integer idPessoa;
-
-    @NotEmpty
-    @Size(max = 13)
-    private String numero;
-
-    @NotNull
-    @NotEmpty
-    private String descricao;
-
-    @NotNull
-    private TipoContato tipoDeContato;
 
 }

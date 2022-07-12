@@ -44,7 +44,7 @@ public class ContatoRepository {
         return listaContatos;
     }
 
-    public Contato updateContato(Contato contatoAntigo, Contato contatoNovo) throws Exception {
+    public Contato updateContato(Contato contatoAntigo, Contato contatoNovo) {
         contatoAntigo.setDescricao(contatoNovo.getDescricao());
         contatoAntigo.setNumero(contatoNovo.getNumero());
         contatoAntigo.setDescricao(contatoNovo.getDescricao());
@@ -52,8 +52,7 @@ public class ContatoRepository {
         return contatoAntigo;
     }
 
-    public void deleteContato(Contato contato) throws Exception {
-
+    public void deleteContato(Contato contato) {
         listaContatos.remove(contato);
     }
 

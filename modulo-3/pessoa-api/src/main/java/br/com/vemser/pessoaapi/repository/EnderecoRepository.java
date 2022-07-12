@@ -43,7 +43,7 @@ public class EnderecoRepository {
         return enderecoNovo;
     }
 
-    public void delete(Endereco endereco) throws Exception {
+    public void delete(Endereco endereco){
         listaEndereco.remove(endereco);
     }
 
