@@ -1,20 +1,17 @@
 package br.com.vemser.pessoaapi.entities;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 import java.util.Arrays;
 
+@AllArgsConstructor
+@Getter
 public enum TipoEndereco {
     RESIDENCIAL(1),
     COMERCIAL(2);
 
     private Integer tipo;
-
-    TipoEndereco(Integer tipo) {
-        this.tipo = tipo;
-    }
-
-    public Integer getTipo() {
-        return tipo;
-    }
 
     public static TipoEndereco ofTipo(Integer tipo){
         return Arrays.stream(TipoEndereco.values())
