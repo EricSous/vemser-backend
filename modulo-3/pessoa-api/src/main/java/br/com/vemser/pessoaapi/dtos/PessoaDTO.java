@@ -1,5 +1,6 @@
 package br.com.vemser.pessoaapi.dtos;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,6 +19,7 @@ import java.util.Date;
 @NoArgsConstructor
 public class PessoaDTO extends PessoaCreateDTO{
 
+    @Schema(description = "Id da pessoa")
     private Integer idPessoa;
 
 }

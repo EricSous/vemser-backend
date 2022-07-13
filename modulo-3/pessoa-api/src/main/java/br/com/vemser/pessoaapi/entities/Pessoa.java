@@ -17,19 +17,12 @@ public class Pessoa {
 
     private Integer idPessoa;
 
-    @NotEmpty
-    //@Getter(AccessLevel.NONE)
     private String nome;
 
-    @Past
-    @NotNull
     private Date dataNascimento;
 
-    @Size(max = 11, min = 11)
-    @NotNull
     private String cpf;
 
-    @NotNull
     private String email;
 
 

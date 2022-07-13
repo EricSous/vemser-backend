@@ -19,15 +19,10 @@ public class Contato {
 
         private Integer idPessoa;
 
-        @NotEmpty
-        @Size(max = 13)
         private String numero;
 
-        @NotNull
-        @NotEmpty
         private String descricao;
 
-        @NotNull
         private TipoContato tipoDeContato;
 
     @Override
