@@ -25,12 +25,14 @@ public class ContatoService {
     @Autowired
     private ObjectMapper objectMapper;
 
-    public ContatoDTO adicionar(Integer idPessoa, ContatoCreateDTO contato) {
+    public ContatoDTO adicionar(Integer idPessoa, ContatoCreateDTO contato) throws RegraDeNegocioException {
         Contato contatoEntidade = objectMapper.convertValue(contato, Contato.class);
         pessoaService.pessoaPorId(idPessoa);
         contatoEntidade.setIdPessoa(idPessoa);
+
         Contato contatoSalvo = contatoRepository.save(contatoEntidade);
         contatoEntidade.setId(contatoSalvo.getId());
+
         return objectMapper.convertValue(contatoEntidade, ContatoDTO.class);
     }
 
@@ -38,6 +40,7 @@ public class ContatoService {
         Contato contatoExist = this.verificaContato(id);
         Contato contatoEntidade = objectMapper.convertValue(contato, Contato.class);
         contatoEntidade.setId(id);
+
         contatoEntidade.setIdPessoa(contatoExist.getIdPessoa());
         return objectMapper.convertValue(contatoRepository.save(contatoEntidade), ContatoDTO.class);
     }
@@ -59,8 +62,8 @@ public class ContatoService {
                 .collect(Collectors.toList());
     }
 
-    public ContatoDTO listarPorId(int id) {
-        return objectMapper.convertValue(contatoRepository.findById(id).get(), ContatoDTO.class);
+    public ContatoDTO listarPorId(int id) throws RegraDeNegocioException {
+        return objectMapper.convertValue(this.verificaContato(id), ContatoDTO.class);
     }
 
 }

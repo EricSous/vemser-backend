@@ -9,7 +9,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,9 +26,10 @@ public class PessoaService {
 
     public PessoaDTO adicionar(PessoaCreateDTO pessoa) {
         Pessoa pessoaEntity = objectMapper.convertValue(pessoa, Pessoa.class);
+        pessoaRepository.save(pessoaEntity);
+
         PessoaDTO pessoaDTO = objectMapper.convertValue(pessoaEntity, PessoaDTO.class);
-        Pessoa pessoaAdicionada = pessoaRepository.save(pessoaEntity);
-        pessoaDTO.setId(pessoaAdicionada.getId());
+
         emailService.enviarEmailCrud(pessoaDTO, "email-template.ftl");
         return pessoaDTO;
     }
@@ -37,6 +37,7 @@ public class PessoaService {
     public PessoaDTO editar(int id, PessoaCreateDTO pessoa) throws RegraDeNegocioException {
         Pessoa pessoaEntity = objectMapper.convertValue(pessoa, Pessoa.class);
         pessoaPorId(id);
+
         pessoaEntity.setId(id);
         PessoaDTO pessoaDto = objectMapper.convertValue(pessoaRepository.save(pessoaEntity), PessoaDTO.class);
 
@@ -53,15 +54,20 @@ public class PessoaService {
 
 
     public List<PessoaDTO> listar() {
-        return pessoaRepository.findAll().stream().map(p -> objectMapper.convertValue(p,PessoaDTO.class)).collect(Collectors.toList());
+        return pessoaRepository.findAll().stream()
+                .map(p -> objectMapper.convertValue(p, PessoaDTO.class))
+                .collect(Collectors.toList());
     }
 
     public List<PessoaDTO> listarPorNome(String nome) {
-        return this.listar().stream().filter(p -> p.getNome().equals(nome)).collect(Collectors.toList());
+        return this.listar().stream()
+                .filter(p -> p.getNome().equals(nome))
+                .collect(Collectors.toList());
     }
 
-    public Pessoa pessoaPorId(int id) {
-        return pessoaRepository.findById(id).get();
+    public Pessoa pessoaPorId(int id) throws RegraDeNegocioException {
+        return pessoaRepository.findById(id)
+                .orElseThrow(() -> new RegraDeNegocioException("Pessoa não encontrada"));
     }
 
 }

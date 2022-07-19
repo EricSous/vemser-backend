@@ -55,7 +55,7 @@ public class ContatoController {
             }
     )
     @GetMapping("/byIdPessoa") // localhost:8080/contato/byIdPessoa
-    public ContatoDTO contatoById(@RequestParam("id") int id) {
+    public ContatoDTO contatoById(@RequestParam("id") int id) throws RegraDeNegocioException {
         return contatoService.listarPorId(id);
     }
 
