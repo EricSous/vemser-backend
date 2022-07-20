@@ -8,7 +8,7 @@ import javax.persistence.*;
 
 @Getter
 @Setter
-@Entity
+@Entity(name = "PET")
 @Table(name = "PET")
 public class PetEntity {
 

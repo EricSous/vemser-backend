@@ -93,7 +93,7 @@ public class PessoaService {
 
     }
 
-    public List<PessoaEnderecoDTO> pessoaEnderecoPorId(Integer id) throws RegraDeNegocioException {
+    public List<PessoaEnderecoDTO> pessoaEnderecoPorId(Integer id){
         if (id == null) {
             return pessoaRepository.findAll().stream()
                     .map(p -> {
@@ -114,7 +114,7 @@ public class PessoaService {
 
 
 
-    public List<PessoaPetDTO> pessoaPetPorId(Integer id) throws RegraDeNegocioException {
+    public List<PessoaPetDTO> pessoaPetPorId(Integer id){
         if (id == null) {
             return pessoaRepository.findAll().stream()
                     .map(p -> {
@@ -130,5 +130,36 @@ public class PessoaService {
                     return petDTO;
                 }).toList();
     }
+
+    public List<PessoaCompletaDTO> pessoaCompletaPorId(Integer id){
+        if (id == null) {
+            return pessoaRepository.findAll().stream()
+                    .map(p -> {
+                        PessoaCompletaDTO pessoaCompletaDTO = objectMapper.convertValue(p, PessoaCompletaDTO.class);
+                        pessoaCompletaDTO.setPetDTOS(objectMapper.convertValue(p.getPet(),PetDTO.class));
+                        pessoaCompletaDTO.setEnderecoDTOS(p.getEnderecoPessoa().stream()
+                                .map(e -> objectMapper.convertValue(e, EnderecoDTO.class)).toList());
+                        pessoaCompletaDTO.setContatoDTOS(p.getContatos().stream()
+                                .map(e -> objectMapper.convertValue(e,ContatoDTO.class)).toList());
+                        return pessoaCompletaDTO;
+                    }).toList();
+        }
+        return pessoaRepository.findById(id).stream()
+                .map(p -> {
+                    PessoaCompletaDTO pessoaCompletaDTO = objectMapper.convertValue(p, PessoaCompletaDTO.class);
+                    pessoaCompletaDTO.setPetDTOS(objectMapper.convertValue(p.getPet(),PetDTO.class));
+                    pessoaCompletaDTO.setEnderecoDTOS(p.getEnderecoPessoa().stream()
+                            .map(e -> objectMapper.convertValue(e, EnderecoDTO.class)).toList());
+                    pessoaCompletaDTO.setContatoDTOS(p.getContatos().stream()
+                            .map(e -> objectMapper.convertValue(e,ContatoDTO.class)).toList());
+                    return pessoaCompletaDTO;
+                }).toList();
+    }
+
+    public List<PessoaCompostaTudoDTO> pessoaCompostaTudoPorId(){
+        return pessoaRepository.findPessoaCompostaTudo();
+    }
+
+
 
 }

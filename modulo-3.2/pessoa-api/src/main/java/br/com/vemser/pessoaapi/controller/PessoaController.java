@@ -87,9 +87,19 @@ public class PessoaController {
         return pessoaService.pessoaEnderecoPorId(idEndereco);
     }
 
+    @GetMapping("/pessoaCompleta")
+    public List<PessoaCompletaDTO> listCompletoByID(@RequestParam (value = "idEndereco", required = false) Integer idEndereco){
+        return pessoaService.pessoaCompletaPorId(idEndereco);
+    }
+
     @GetMapping("/pets")
     public List<PessoaPetDTO> listPetsByID(@RequestParam (value = "idPets", required = false) Integer idPets) throws RegraDeNegocioException {
         return pessoaService.pessoaPetPorId(idPets);
+    }
+
+    @GetMapping("/pessoaComposta")
+    public List<PessoaCompostaTudoDTO> listCompostaTudoByID(){
+        return pessoaService.pessoaCompostaTudoPorId();
     }
 
     @Operation(summary = "Criação de pessoa", description = "Cria uma nova pessoa")
