@@ -1,7 +1,6 @@
 package br.com.vemser.pessoaapi.service;
 
-import br.com.vemser.pessoaapi.dtos.PessoaCreateDTO;
-import br.com.vemser.pessoaapi.dtos.PessoaDTO;
+import br.com.vemser.pessoaapi.dtos.*;
 import br.com.vemser.pessoaapi.entities.Pessoa;
 import br.com.vemser.pessoaapi.exceptions.RegraDeNegocioException;
 import br.com.vemser.pessoaapi.repository.PessoaRepository;
@@ -9,6 +8,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,8 +36,8 @@ public class PessoaService {
 
     public PessoaDTO editar(int id, PessoaCreateDTO pessoa) throws RegraDeNegocioException {
         Pessoa pessoaEntity = objectMapper.convertValue(pessoa, Pessoa.class);
-        pessoaPorId(id);
-
+        Pessoa pessoa1 = pessoaPorId(id);
+        pessoaEntity.setPet(pessoa1.getPet());
         pessoaEntity.setId(id);
         PessoaDTO pessoaDto = objectMapper.convertValue(pessoaRepository.save(pessoaEntity), PessoaDTO.class);
 
@@ -68,6 +68,65 @@ public class PessoaService {
     public Pessoa pessoaPorId(int id) throws RegraDeNegocioException {
         return pessoaRepository.findById(id)
                 .orElseThrow(() -> new RegraDeNegocioException("Pessoa não encontrada"));
+    }
+
+    public List<? extends Object> pessoaContatoPorId(Integer id) {
+        if(id == null){
+            return pessoaRepository.findAll().stream()
+                    .map(Pessoa::getContatos)
+                    .toList()
+                    .stream()
+                    .map(c -> c.stream()
+                            .map(c1 -> objectMapper.convertValue(c1, ContatoDTO.class)))
+                    .toList();
+        }
+        return pessoaRepository.findById(id).stream()
+                .map(Pessoa::getContatos)
+                .toList()
+                .stream()
+                .map(c -> c.stream()
+                        .map(c1 -> objectMapper.convertValue(c1, ContatoDTO.class)))
+                .toList();
+
+    }
+
+    public List<? extends Object> pessoaEnderecoPorId(Integer id) throws RegraDeNegocioException {
+        if(id == null){
+
+            return new ArrayList<>(pessoaRepository.findAll()
+                    .stream()
+                    .map(Pessoa::getEnderecoPessoa)
+                    .collect(Collectors.toList()))
+                    .stream()
+                    .map(c -> (c.stream().map(c1 ->objectMapper.convertValue(c1,EnderecoDTO.class))))
+                    .toList();
+        }
+        return pessoaRepository.findById(id).stream()
+                .map(Pessoa::getEnderecoPessoa)
+                .toList()
+                .stream()
+                .map(c -> c.stream().map(c1 -> objectMapper.convertValue(c1, EnderecoDTO.class)))
+                .toList();
+
+    }
+
+    public List<PetDTO> pessoaPetPorId(Integer id) throws RegraDeNegocioException {
+        if(id == null){
+            return new ArrayList<>(pessoaRepository.findAll()
+                    .stream()
+                    .map(Pessoa::getPet)
+                    .toList())
+                    .stream()
+                    .map(c -> objectMapper.convertValue(c, PetDTO.class))
+                    .toList();
+        }
+        return pessoaRepository.findById(id).stream()
+                .map(Pessoa::getPet)
+                .toList()
+                .stream()
+                .map(c -> objectMapper.convertValue(c, PetDTO.class))
+                .toList();
+
     }
 
 }

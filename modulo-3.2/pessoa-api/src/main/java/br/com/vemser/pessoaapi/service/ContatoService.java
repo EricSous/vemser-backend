@@ -27,9 +27,9 @@ public class ContatoService {
 
     public ContatoDTO adicionar(Integer idPessoa, ContatoCreateDTO contato) throws RegraDeNegocioException {
         Contato contatoEntidade = objectMapper.convertValue(contato, Contato.class);
-        pessoaService.pessoaPorId(idPessoa);
+        Pessoa pessoa =pessoaService.pessoaPorId(idPessoa);
         contatoEntidade.setIdPessoa(idPessoa);
-
+        contatoEntidade.setPessoa(pessoa);
         Contato contatoSalvo = contatoRepository.save(contatoEntidade);
         contatoEntidade.setId(contatoSalvo.getId());
 
@@ -40,8 +40,7 @@ public class ContatoService {
         Contato contatoExist = this.verificaContato(id);
         Contato contatoEntidade = objectMapper.convertValue(contato, Contato.class);
         contatoEntidade.setId(id);
-
-        contatoEntidade.setIdPessoa(contatoExist.getIdPessoa());
+        contatoEntidade.setPessoa(contatoExist.getPessoa());
         return objectMapper.convertValue(contatoRepository.save(contatoEntidade), ContatoDTO.class);
     }
 

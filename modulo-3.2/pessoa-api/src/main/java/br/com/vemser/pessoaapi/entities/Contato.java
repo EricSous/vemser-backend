@@ -1,5 +1,6 @@
 package br.com.vemser.pessoaapi.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,6 +18,11 @@ public class Contato {
     @Column(name = "ID_CONTATO", nullable = false)
     private Integer id;
 
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ID_PESSOA", referencedColumnName = "ID_PESSOA")
+    private Pessoa pessoa;
+
     @Column(name = "TIPO")
     private TipoContato tipoContato;
 
@@ -26,7 +32,7 @@ public class Contato {
     @Column(name = "DESCRICAO", length = 100)
     private String descricao;
 
-    @Column(name = "ID_PESSOA", nullable = false)
+    @Column(name = "ID_PESSOA", insertable = false, updatable = false)
     private Integer idPessoa;
 
 }

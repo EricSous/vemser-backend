@@ -1,11 +1,11 @@
 package br.com.vemser.pessoaapi.controller;
 
-import br.com.vemser.pessoaapi.dtos.PessoaCreateDTO;
-import br.com.vemser.pessoaapi.dtos.PessoaDTO;
+import br.com.vemser.pessoaapi.dtos.*;
 import br.com.vemser.pessoaapi.exceptions.RegraDeNegocioException;
 import br.com.vemser.pessoaapi.properties.PropertieReader;
 import br.com.vemser.pessoaapi.service.PessoaService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/pessoa") // localhost:8080/pessoa
+@RequestMapping("/pessoa")
 public class PessoaController {
 
     @Autowired
@@ -45,7 +45,7 @@ public class PessoaController {
                     @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção")
             }
     )
-    @GetMapping("/hello") // localhost:8080/pessoa/hello
+    @GetMapping("/hello")
     public String hello() {
         return "Hello world!";
     }
@@ -58,7 +58,7 @@ public class PessoaController {
                     @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção")
             }
     )
-    @GetMapping // localhost:8080/pessoa
+    @GetMapping
     public List<PessoaDTO> list() {
         return pessoaService.listar();
     }
@@ -71,9 +71,25 @@ public class PessoaController {
                     @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção")
             }
     )
-    @GetMapping("/byname") // localhost:8080/pessoa/byname?nome=Rafa
+    @GetMapping("/byname")
     public List<PessoaDTO> listByName(@RequestParam("nome") String nome) {
         return pessoaService.listarPorNome(nome);
+    }
+
+
+    @GetMapping("/contatos")
+    public List<? extends Object> listContatosByID(@RequestParam (value = "idPessoa", required = false) Integer idPessoa) throws RegraDeNegocioException {
+        return pessoaService.pessoaContatoPorId(idPessoa);
+    }
+
+    @GetMapping("/enderecos")
+    public List<?> listEnderecosByID(@RequestParam (value = "idEndereco", required = false) Integer idEndereco) throws RegraDeNegocioException {
+        return pessoaService.pessoaEnderecoPorId(idEndereco);
+    }
+
+    @GetMapping("/pets")
+    public List<PetDTO> listPetsByID(@RequestParam (value = "idPets", required = false) Integer idPets) throws RegraDeNegocioException {
+        return pessoaService.pessoaPetPorId(idPets);
     }
 
     @Operation(summary = "Criação de pessoa", description = "Cria uma nova pessoa")
@@ -84,7 +100,7 @@ public class PessoaController {
                     @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção")
             }
     )
-    @PostMapping // localhost:8080/pessoa
+    @PostMapping
     public PessoaDTO create(@Valid @RequestBody PessoaCreateDTO pessoa) {
         return pessoaService.adicionar(pessoa);
     }
