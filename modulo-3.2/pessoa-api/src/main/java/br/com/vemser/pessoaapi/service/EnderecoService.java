@@ -2,7 +2,8 @@ package br.com.vemser.pessoaapi.service;
 
 import br.com.vemser.pessoaapi.dtos.EnderecoCreateDTO;
 import br.com.vemser.pessoaapi.dtos.EnderecoDTO;
-import br.com.vemser.pessoaapi.entities.EnderecoPessoa;
+import br.com.vemser.pessoaapi.entities.EnderecoPessoaEntity;
+import br.com.vemser.pessoaapi.entities.PessoaEntity;
 import br.com.vemser.pessoaapi.exceptions.RegraDeNegocioException;
 import br.com.vemser.pessoaapi.repository.EnderecoPessoaRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -27,8 +29,11 @@ public class EnderecoService {
     private ObjectMapper objectMapper = new ObjectMapper();
 
     public EnderecoDTO adicionar(Integer id, EnderecoCreateDTO endereco) throws RegraDeNegocioException {
-        pessoaService.pessoaPorId(id);
-        EnderecoPessoa enderecoEntidade = objectMapper.convertValue(endereco, EnderecoPessoa.class);
+        PessoaEntity pessoa = pessoaService.pessoaPorId(id);
+
+        EnderecoPessoaEntity enderecoEntidade = objectMapper.convertValue(endereco, EnderecoPessoaEntity.class);
+        enderecoEntidade.setPessoa(Set.of(pessoa));
+
         EnderecoDTO enderecoDTO = objectMapper.convertValue(enderecoPessoaRepository.save(enderecoEntidade), EnderecoDTO.class);
         enderecoDTO.setId(id);
 
@@ -37,7 +42,7 @@ public class EnderecoService {
     }
 
     public EnderecoDTO editar(int id, EnderecoCreateDTO enderecoNovo) {
-        EnderecoPessoa enderecoEntidade = objectMapper.convertValue(enderecoNovo, EnderecoPessoa.class);
+        EnderecoPessoaEntity enderecoEntidade = objectMapper.convertValue(enderecoNovo, EnderecoPessoaEntity.class);
         enderecoEntidade.setId(id);
 
         EnderecoDTO enderecoDTO = objectMapper.convertValue(enderecoPessoaRepository.save(enderecoEntidade), EnderecoDTO.class);
@@ -48,14 +53,14 @@ public class EnderecoService {
     }
 
     public void deletar(int id) {
-        EnderecoPessoa enderecoRecuperado = this.verificaEndereco(id);
+        EnderecoPessoaEntity enderecoRecuperado = this.verificaEndereco(id);
         EnderecoDTO enderecoDTO = objectMapper.convertValue(enderecoRecuperado, EnderecoDTO.class);
 
         enderecoPessoaRepository.delete(enderecoRecuperado);
         emailService.enviarEmailCrudEndereco(enderecoDTO, "email-endereco-template.ftl");
     }
 
-    public EnderecoPessoa verificaEndereco(int id){
+    public EnderecoPessoaEntity verificaEndereco(int id){
         return enderecoPessoaRepository.findById(id).get();
     }
 

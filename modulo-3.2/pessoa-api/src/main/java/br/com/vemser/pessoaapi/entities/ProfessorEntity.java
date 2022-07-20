@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 @Setter
 @Entity
 @Table(name = "PROFESSOR")
-public class Professor {
+public class ProfessorEntity {
 
     @EmbeddedId
     private ProfessorId id;

@@ -11,7 +11,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Table(name = "ENDERECO_PESSOA")
-public class EnderecoPessoa {
+public class EnderecoPessoaEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ENDERECO_SEQ")
@@ -48,7 +48,7 @@ public class EnderecoPessoa {
     @JoinTable(name = "PESSOA_X_PESSOA_ENDERECO",
             joinColumns = @JoinColumn(name = "id_endereco"),
             inverseJoinColumns = @JoinColumn(name = "id_pessoa"))
-    private Set<Pessoa> pessoa;
+    private Set<PessoaEntity> pessoa;
 
 
 }

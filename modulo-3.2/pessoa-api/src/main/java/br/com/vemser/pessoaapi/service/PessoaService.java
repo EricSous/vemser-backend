@@ -1,14 +1,13 @@
 package br.com.vemser.pessoaapi.service;
 
 import br.com.vemser.pessoaapi.dtos.*;
-import br.com.vemser.pessoaapi.entities.Pessoa;
+import br.com.vemser.pessoaapi.entities.PessoaEntity;
 import br.com.vemser.pessoaapi.exceptions.RegraDeNegocioException;
 import br.com.vemser.pessoaapi.repository.PessoaRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,7 +24,7 @@ public class PessoaService {
     private EmailService emailService;
 
     public PessoaDTO adicionar(PessoaCreateDTO pessoa) {
-        Pessoa pessoaEntity = objectMapper.convertValue(pessoa, Pessoa.class);
+        PessoaEntity pessoaEntity = objectMapper.convertValue(pessoa, PessoaEntity.class);
         pessoaRepository.save(pessoaEntity);
 
         PessoaDTO pessoaDTO = objectMapper.convertValue(pessoaEntity, PessoaDTO.class);
@@ -34,9 +33,13 @@ public class PessoaService {
         return pessoaDTO;
     }
 
+    public PessoaEntity save(PessoaEntity pessoa){
+        return pessoaRepository.save(pessoa);
+    }
+
     public PessoaDTO editar(int id, PessoaCreateDTO pessoa) throws RegraDeNegocioException {
-        Pessoa pessoaEntity = objectMapper.convertValue(pessoa, Pessoa.class);
-        Pessoa pessoa1 = pessoaPorId(id);
+        PessoaEntity pessoaEntity = objectMapper.convertValue(pessoa, PessoaEntity.class);
+        PessoaEntity pessoa1 = pessoaPorId(id);
         pessoaEntity.setPet(pessoa1.getPet());
         pessoaEntity.setId(id);
         PessoaDTO pessoaDto = objectMapper.convertValue(pessoaRepository.save(pessoaEntity), PessoaDTO.class);
@@ -46,7 +49,7 @@ public class PessoaService {
     }
 
     public void deletar(int id) throws RegraDeNegocioException {
-        Pessoa pessoaRecuperada = this.pessoaPorId(id);
+        PessoaEntity pessoaRecuperada = this.pessoaPorId(id);
         PessoaDTO pessoaDTO = objectMapper.convertValue(pessoaRecuperada, PessoaDTO.class);
         pessoaRepository.delete(pessoaRecuperada);
         emailService.enviarEmailCrud(pessoaDTO, "email-template3.ftl");
@@ -65,68 +68,67 @@ public class PessoaService {
                 .collect(Collectors.toList());
     }
 
-    public Pessoa pessoaPorId(int id) throws RegraDeNegocioException {
+    public PessoaEntity pessoaPorId(int id) throws RegraDeNegocioException {
         return pessoaRepository.findById(id)
                 .orElseThrow(() -> new RegraDeNegocioException("Pessoa não encontrada"));
     }
 
-    public List<? extends Object> pessoaContatoPorId(Integer id) {
+    public List<PessoaContatoDTO> pessoaContatoPorId(Integer id) {
         if(id == null){
             return pessoaRepository.findAll().stream()
-                    .map(Pessoa::getContatos)
-                    .toList()
-                    .stream()
-                    .map(c -> c.stream()
-                            .map(c1 -> objectMapper.convertValue(c1, ContatoDTO.class)))
-                    .toList();
+                    .map(p -> {
+                        PessoaContatoDTO pessoaDTO = objectMapper.convertValue(p, PessoaContatoDTO.class);
+                        pessoaDTO.setContatoDTOS(p.getContatos().stream()
+                                .map(e -> objectMapper.convertValue(e,ContatoDTO.class)).toList());
+                        return pessoaDTO;
+                    }).toList();
         }
         return pessoaRepository.findById(id).stream()
-                .map(Pessoa::getContatos)
-                .toList()
-                .stream()
-                .map(c -> c.stream()
-                        .map(c1 -> objectMapper.convertValue(c1, ContatoDTO.class)))
-                .toList();
+                .map(p -> {
+                    PessoaContatoDTO pessoaDTO = objectMapper.convertValue(p, PessoaContatoDTO.class);
+                    pessoaDTO.setContatoDTOS(p.getContatos().stream()
+                            .map(e -> objectMapper.convertValue(e,ContatoDTO.class)).toList());
+                    return pessoaDTO;
+                }).toList();
 
     }
 
-    public List<? extends Object> pessoaEnderecoPorId(Integer id) throws RegraDeNegocioException {
-        if(id == null){
-
-            return new ArrayList<>(pessoaRepository.findAll()
-                    .stream()
-                    .map(Pessoa::getEnderecoPessoa)
-                    .collect(Collectors.toList()))
-                    .stream()
-                    .map(c -> (c.stream().map(c1 ->objectMapper.convertValue(c1,EnderecoDTO.class))))
-                    .toList();
+    public List<PessoaEnderecoDTO> pessoaEnderecoPorId(Integer id) throws RegraDeNegocioException {
+        if (id == null) {
+            return pessoaRepository.findAll().stream()
+                    .map(p -> {
+                        PessoaEnderecoDTO pessoaDTO = objectMapper.convertValue(p, PessoaEnderecoDTO.class);
+                        pessoaDTO.setEnderecoDTOS(p.getEnderecoPessoa().stream()
+                                .map(e -> objectMapper.convertValue(e, EnderecoDTO.class)).toList());
+                        return pessoaDTO;
+                    }).toList();
         }
         return pessoaRepository.findById(id).stream()
-                .map(Pessoa::getEnderecoPessoa)
-                .toList()
-                .stream()
-                .map(c -> c.stream().map(c1 -> objectMapper.convertValue(c1, EnderecoDTO.class)))
-                .toList();
-
+                .map(p -> {
+                    PessoaEnderecoDTO pessoaDTO = objectMapper.convertValue(p, PessoaEnderecoDTO.class);
+                    pessoaDTO.setEnderecoDTOS(p.getEnderecoPessoa().stream()
+                            .map(e -> objectMapper.convertValue(e, EnderecoDTO.class)).toList());
+                    return pessoaDTO;
+                }).toList();
     }
 
-    public List<PetDTO> pessoaPetPorId(Integer id) throws RegraDeNegocioException {
-        if(id == null){
-            return new ArrayList<>(pessoaRepository.findAll()
-                    .stream()
-                    .map(Pessoa::getPet)
-                    .toList())
-                    .stream()
-                    .map(c -> objectMapper.convertValue(c, PetDTO.class))
-                    .toList();
+
+
+    public List<PessoaPetDTO> pessoaPetPorId(Integer id) throws RegraDeNegocioException {
+        if (id == null) {
+            return pessoaRepository.findAll().stream()
+                    .map(p -> {
+                        PessoaPetDTO petDTO = objectMapper.convertValue(p, PessoaPetDTO.class);
+                        petDTO.setPetDTO(objectMapper.convertValue(p.getPet(),PetDTO.class));
+                        return petDTO;
+                    }).toList();
         }
         return pessoaRepository.findById(id).stream()
-                .map(Pessoa::getPet)
-                .toList()
-                .stream()
-                .map(c -> objectMapper.convertValue(c, PetDTO.class))
-                .toList();
-
+                .map(p -> {
+                    PessoaPetDTO petDTO = objectMapper.convertValue(p, PessoaPetDTO.class);
+                    petDTO.setPetDTO(objectMapper.convertValue(p.getPet(),PetDTO.class));
+                    return petDTO;
+                }).toList();
     }
 
 }

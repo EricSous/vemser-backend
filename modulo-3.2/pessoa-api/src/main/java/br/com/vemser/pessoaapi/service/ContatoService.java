@@ -2,8 +2,8 @@ package br.com.vemser.pessoaapi.service;
 
 import br.com.vemser.pessoaapi.dtos.ContatoCreateDTO;
 import br.com.vemser.pessoaapi.dtos.ContatoDTO;
-import br.com.vemser.pessoaapi.entities.Contato;
-import br.com.vemser.pessoaapi.entities.Pessoa;
+import br.com.vemser.pessoaapi.entities.ContatoEntity;
+import br.com.vemser.pessoaapi.entities.PessoaEntity;
 import br.com.vemser.pessoaapi.exceptions.RegraDeNegocioException;
 import br.com.vemser.pessoaapi.repository.ContatoRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -26,36 +26,38 @@ public class ContatoService {
     private ObjectMapper objectMapper;
 
     public ContatoDTO adicionar(Integer idPessoa, ContatoCreateDTO contato) throws RegraDeNegocioException {
-        Contato contatoEntidade = objectMapper.convertValue(contato, Contato.class);
-        Pessoa pessoa =pessoaService.pessoaPorId(idPessoa);
+        ContatoEntity contatoEntidade = objectMapper.convertValue(contato, ContatoEntity.class);
+        PessoaEntity pessoa =pessoaService.pessoaPorId(idPessoa);
+
         contatoEntidade.setIdPessoa(idPessoa);
         contatoEntidade.setPessoa(pessoa);
-        Contato contatoSalvo = contatoRepository.save(contatoEntidade);
+
+        ContatoEntity contatoSalvo = contatoRepository.save(contatoEntidade);
         contatoEntidade.setId(contatoSalvo.getId());
 
         return objectMapper.convertValue(contatoEntidade, ContatoDTO.class);
     }
 
     public ContatoDTO editar(int id, ContatoCreateDTO contato) throws RegraDeNegocioException {
-        Contato contatoExist = this.verificaContato(id);
-        Contato contatoEntidade = objectMapper.convertValue(contato, Contato.class);
+        ContatoEntity contatoExist = this.verificaContato(id);
+        ContatoEntity contatoEntidade = objectMapper.convertValue(contato, ContatoEntity.class);
         contatoEntidade.setId(id);
         contatoEntidade.setPessoa(contatoExist.getPessoa());
         return objectMapper.convertValue(contatoRepository.save(contatoEntidade), ContatoDTO.class);
     }
 
     public void deletar(int id) throws RegraDeNegocioException {
-        Contato pessoaRecuperada = this.verificaContato(id);
+        ContatoEntity pessoaRecuperada = this.verificaContato(id);
         contatoRepository.delete(pessoaRecuperada);
     }
 
-    public Contato verificaContato(int id) throws RegraDeNegocioException {
+    public ContatoEntity verificaContato(int id) throws RegraDeNegocioException {
         return contatoRepository.findById(id).stream().findFirst()
                 .orElseThrow(() -> new RegraDeNegocioException("Contato não encontrado"));
     }
 
     public List<ContatoDTO> listar() {
-        List<Contato> listaDto = contatoRepository.findAll();
+        List<ContatoEntity> listaDto = contatoRepository.findAll();
         return listaDto.stream()
                 .map(contato -> objectMapper.convertValue(contato, ContatoDTO.class))
                 .collect(Collectors.toList());

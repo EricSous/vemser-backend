@@ -12,7 +12,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Table(name = "PESSOA")
-public class Pessoa {
+public class PessoaEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PESSOA_SEQ")
@@ -34,18 +34,18 @@ public class Pessoa {
 
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "pessoa", cascade = CascadeType.ALL)
-    private Set<Contato> contatos;
+    private Set<ContatoEntity> contatos;
 
     @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY) // Lazy traz quando e solicitado
     @JoinTable(name = "PESSOA_X_PESSOA_ENDERECO",
             joinColumns = @JoinColumn(name = "id_pessoa"),
             inverseJoinColumns = @JoinColumn(name = "id_endereco"))
-    private Set<EnderecoPessoa> enderecoPessoa;
+    private Set<EnderecoPessoaEntity> enderecoPessoa;
 
     @JsonIgnore
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_PET", referencedColumnName = "ID_PET")
-    private Pet pet;
+    private PetEntity pet;
 
 }

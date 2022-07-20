@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Setter
 @Entity
 @Table(name = "PET")
-public class Pet {
+public class PetEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PET_SEQ")
@@ -21,13 +21,12 @@ public class Pet {
     @JsonIgnore
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_PESSOA", referencedColumnName = "ID_PESSOA")
-    private Pessoa pessoa;
+    private PessoaEntity pessoa;
 
     @Column(name = "NOME", nullable = false)
     private String nome;
 
     @Column(name = "TIPO", nullable = false)
     private TipoPet tipoPet;
-
 
 }

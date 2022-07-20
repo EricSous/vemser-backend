@@ -83,12 +83,12 @@ public class PessoaController {
     }
 
     @GetMapping("/enderecos")
-    public List<?> listEnderecosByID(@RequestParam (value = "idEndereco", required = false) Integer idEndereco) throws RegraDeNegocioException {
+    public List<PessoaEnderecoDTO> listEnderecosByID(@RequestParam (value = "idEndereco", required = false) Integer idEndereco) throws RegraDeNegocioException {
         return pessoaService.pessoaEnderecoPorId(idEndereco);
     }
 
     @GetMapping("/pets")
-    public List<PetDTO> listPetsByID(@RequestParam (value = "idPets", required = false) Integer idPets) throws RegraDeNegocioException {
+    public List<PessoaPetDTO> listPetsByID(@RequestParam (value = "idPets", required = false) Integer idPets) throws RegraDeNegocioException {
         return pessoaService.pessoaPetPorId(idPets);
     }
 

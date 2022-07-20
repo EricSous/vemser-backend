@@ -1,6 +1,6 @@
 package br.com.vemser.pessoaapi.controller;
 
-import br.com.vemser.pessoaapi.entities.Professor;
+import br.com.vemser.pessoaapi.entities.ProfessorEntity;
 import br.com.vemser.pessoaapi.repository.ProfessorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,12 +16,12 @@ public class ProfessorController {
     private ProfessorRepository professorRepository;
 
     @GetMapping("/listar")
-    public List<Professor> lista() {
+    public List<ProfessorEntity> lista() {
         return professorRepository.findAll();
     }
 
     @PostMapping("/save")
-    public Professor salva(@RequestBody Professor professor) {
+    public ProfessorEntity salva(@RequestBody ProfessorEntity professor) {
         return professorRepository.save(professor);
     }
 }

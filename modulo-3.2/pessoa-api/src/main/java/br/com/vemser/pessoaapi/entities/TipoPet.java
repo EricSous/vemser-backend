@@ -12,7 +12,7 @@ public enum TipoPet {
 
     CACHORRO(1),
     GATO(2),
-    ELEFANTE(3);
+    GUAXINIM(3);
 
     private Integer tipo;
 
